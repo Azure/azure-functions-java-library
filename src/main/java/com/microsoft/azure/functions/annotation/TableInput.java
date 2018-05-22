@@ -11,6 +11,25 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * <p>The following example shows an HTTP trigger which returned the total count of the items in a table storage:</p>
+ *
+ * <pre>{@literal @}FunctionName("getallcount")
+ * public int run(
+ *    {@literal @}HttpTrigger(name = "req",
+ *                  methods = {"get"},
+ *                  authLevel = AuthorizationLevel.ANONYMOUS) Object dummyShouldNotBeUsed,
+ *    {@literal @}TableInput(name = "items",
+ *                 tableName = "mytablename",
+ *                 partitionKey = "myparkey",
+ *                 connection = "myconnvarname") MyItem[] items
+ * ) {
+ *     return items.length;
+ * }</pre>
+ *
+ * @see com.microsoft.azure.functions.annotation.HttpTrigger
+ * @since 1.0.0
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface TableInput {
