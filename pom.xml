@@ -5,7 +5,7 @@
   <version>1.0.0-beta-4</version>
   <packaging>jar</packaging>
 
-  <name>Microsoft Azure Functions Java Runtime Solution</name>
-  <description>This solution builds both the Java core types as well as the runtime for Microsoft Azure Functions.</description>
+  <name>Microsoft Azure Functions Java Core Types</name>
+  <description>This package contains all Java interfaces and annotations to interact with Microsoft Azure functions runtime.</description>
   <url>https://azure.microsoft.com/en-us/services/functions</url> 
 </project>
