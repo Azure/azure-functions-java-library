@@ -11,14 +11,24 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ *
+ * @since 1.0.0
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface ApiHubFileInput {
+public @interface CosmosDBInput {
     String name();
 
     String dataType() default "";
 
-    String path();
+    String databaseName();
 
-    String connection();
+    String collectionName();
+
+    String id() default "";
+
+    String sqlQuery() default "";
+
+    String connectionStringSetting();
 }
