@@ -11,9 +11,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ *
+ * @since 1.0.0
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER, ElementType.METHOD})
-public @interface DocumentDBOutput {
+public @interface CosmosDBOutput {
     String name();
 
     String dataType() default "";
@@ -24,5 +28,5 @@ public @interface DocumentDBOutput {
 
     boolean createIfNotExists() default false;
 
-    String connection();
+    String connectionStringSetting();
 }
