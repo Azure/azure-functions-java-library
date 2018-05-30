@@ -20,15 +20,17 @@ public interface HttpResponseMessage<T> {
     /**
      * Sets the status code on the HttpResponseMessage instance.
      * @param status An HTTP status code representing the outcome of the HTTP request.
+     * @return this response message
      */
-    void setStatus(int status);
+    HttpResponseMessage<T> setStatus(int status);
 
     /**
      * Adds a (key,value) header to the response.
      * @param key The key of the header value.
      * @param value The value of the header value.
+     * @return this response message
      */
-    void addHeader(String key, String value);
+    HttpResponseMessage<T> addHeader(String key, String value);
 
     /**
      * Returns a header value for the given key.
@@ -46,6 +48,7 @@ public interface HttpResponseMessage<T> {
     /**
      * Sets the body of the HTTP response.
      * @param body The body of the HTTP response
+     * @return this response message
      */
-    void setBody(T body);
+    HttpResponseMessage<T> setBody(T body);
 }

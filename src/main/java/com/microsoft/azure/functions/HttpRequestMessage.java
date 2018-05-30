@@ -28,6 +28,12 @@ public interface HttpRequestMessage<T> {
     String getMethod();
 
     /**
+     * Returns the HTTP method name as Enum
+     * @return type of HttpMethod 
+     */
+    HttpMethod getHttpMethod();
+
+    /**
      * Returns a map of headers that were contained within this HTTP request.
      * @return a map of headers that were contained within this HTTP request.
      */
