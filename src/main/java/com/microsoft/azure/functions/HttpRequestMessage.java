@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for
+ * license information.
+ */
+
 package com.microsoft.azure.functions;
 
 import java.net.URI;
@@ -22,10 +28,10 @@ public interface HttpRequestMessage<T> {
     URI getUri();
 
     /**
-     * Returns the HTTP method name, such as "GET" and "POST".
-     * @return the HTTP method name, such as "GET" and "POST".
+     * Returns the HTTP method name as Enum
+     * @return type of HttpMethod 
      */
-    String getMethod();
+    HttpMethod getHttpMethod();
 
     /**
      * Returns a map of headers that were contained within this HTTP request.
@@ -46,22 +52,11 @@ public interface HttpRequestMessage<T> {
     T getBody();
 
     /**
-     * Generates a {@link HttpResponseMessage} instance containing the given HTTP status code and no response body.
-     * Additional headers may be added by calling appropriate methods on {@link HttpResponseMessage}.
+     * Returns a {@link HttpResponseMessage.Builder} instance to build a HTTP status code and no response body.
      *
      * @param status The HTTP status code to return to the caller of the function.
-     * @return An {@link HttpResponseMessage} instance containing the provided status and empty body.
+     * @return An {@link HttpResponseMessage.Builder} instance containing the provided status and empty body.
      */
-    HttpResponseMessage<Object> createResponse(int status);
+    HttpResponseMessage.Builder<Object> createResponseBuilder(HttpStatus status);
 
-    /**
-     * Generates a {@link HttpResponseMessage} instance containing the given HTTP status code and response body.
-     * Additional headers may be added by calling appropriate methods on {@link HttpResponseMessage}.
-     *
-     * @param status The HTTP status code to return to the caller of the function.
-     * @param body The body content to return to the caller of the function.
-     * @param <R> The type of the body, as determined by the return type specified on the function itself.
-     * @return An {@link HttpResponseMessage} instance containing the provided status and body content.
-     */
-    <R> HttpResponseMessage<R> createResponse(int status, R body);
 }
