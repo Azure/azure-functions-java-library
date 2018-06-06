@@ -83,6 +83,6 @@ public interface HttpResponseMessage<T> {
          * 
          * @return an HttpMessageResponse object
          */
-        HttpResponseMessage<T> create();
+        HttpResponseMessage<T> build();
     }
 }
