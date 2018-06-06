@@ -13,11 +13,9 @@ package com.microsoft.azure.functions;
  *
  * @see com.microsoft.azure.functions.annotation.HttpTrigger
  * @see HttpRequestMessage
- * @param <T> The type of the body, as determined by the return type specified
- *        on the function itself.
  * @since 1.0.0
  */
-public interface HttpResponseMessage<T> {
+public interface HttpResponseMessage {
 
     /**
      * Returns the status code set on the HttpResponseMessage instance.
@@ -40,7 +38,7 @@ public interface HttpResponseMessage<T> {
      * 
      * @return the body of the HTTP response.
      */
-    T getBody();
+    Object getBody();
 
     /**
      * A builder to create an instance of HttpResponseMessage
@@ -48,7 +46,7 @@ public interface HttpResponseMessage<T> {
      * @author Bruno Borges
      * @since 1.0
      */
-    public static interface Builder<T> {
+    public static interface Builder {
 
         /**
          * Sets the status code to be used in the HttpResponseMessage object.
@@ -58,7 +56,7 @@ public interface HttpResponseMessage<T> {
          * 
          * @return this builder
          */
-        Builder<T> status(HttpStatus status);
+        Builder status(HttpStatus status);
 
         /**
          * Adds a (key, value) header to the response.
@@ -67,7 +65,7 @@ public interface HttpResponseMessage<T> {
          * @param value The value of the header value.
          * @return this builder
          */
-        Builder<T> header(String key, String value);
+        Builder header(String key, String value);
 
         /**
          * Sets the body of the HTTP response.
@@ -75,7 +73,7 @@ public interface HttpResponseMessage<T> {
          * @param body The body of the HTTP response
          * @return this builder
          */
-        Builder<T> body(T body);
+        Builder body(Object body);
 
         /**
          * Creates an instance of HttpMessageResponse with the values configured
@@ -83,6 +81,6 @@ public interface HttpResponseMessage<T> {
          * 
          * @return an HttpMessageResponse object
          */
-        HttpResponseMessage<T> build();
+        HttpResponseMessage build();
     }
 }
