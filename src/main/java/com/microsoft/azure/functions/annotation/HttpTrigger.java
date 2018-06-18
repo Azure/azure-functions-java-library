@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.microsoft.azure.functions.HttpMethod;
-import com.microsoft.azure.functions.HttpWebHookType;
+import com.microsoft.azure.functions.WebHookType;
 
 /**
  * <p>The HttpTrigger annotation is applied to Azure functions that will be triggered by a call to the HTTP endpoint that
@@ -137,5 +137,5 @@ public @interface HttpTrigger {
      *
      * @return A webhook type.
      */
-    HttpWebHookType webHookType() default HttpWebHookType.NONE;
+    WebHookType webHookType() default WebHookType.NONE;
 }
