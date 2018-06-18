@@ -57,6 +57,6 @@ public interface HttpRequestMessage<T> {
      * @param status The HTTP status code to return to the caller of the function.
      * @return An {@link HttpResponseMessage.Builder} instance containing the provided status and empty body.
      */
-    HttpResponseMessage.Builder<Object> createResponseBuilder(HttpStatus status);
+    HttpResponseMessage.Builder createResponseBuilder(HttpStatus status);
 
 }
