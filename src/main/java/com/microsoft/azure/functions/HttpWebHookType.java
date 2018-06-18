@@ -21,13 +21,11 @@ package com.microsoft.azure.functions;
  * using HTTP POST and with the {@code application/json} content type.</li>
  * <li><strong>github</strong>: The function responds to
  * <a href="https://developer.github.com/webhooks/">GitHub webhooks</a>. Do not
- * use the {@link #authLevel()} property with GitHub webhooks.</li>
+ * use the {@code com.microsoft.azure.functions.annotation.HttpTrigger.authLevel()} property with GitHub webhooks.</li>
  * <li><strong>slack</strong>: The function responds to
  * <a href="https://api.slack.com/outgoing-webhooks">Slack webhooks</a>. Do not
- * use the {@link #authLevel()} property with Slack webhooks.</li>
+ * use the {@code com.microsoft.azure.functions.annotation.HttpTrigger.authLevel()} property with Slack webhooks.</li>
  * </ul>
- *
- * @return A string representing the desired webhook type.
  */
 public enum HttpWebHookType {
     NONE, GENERICJSON, GITHUB, SLACK;
