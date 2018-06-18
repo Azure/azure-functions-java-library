@@ -11,6 +11,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.microsoft.azure.functions.HttpMethod;
+
 /**
  * <p>The HttpTrigger annotation is applied to Azure functions that will be triggered by a call to the HTTP endpoint that
  * the function is located at. The HttpTrigger annotation should be applied to a method parameter of one of the following
@@ -110,7 +112,7 @@ public @interface HttpTrigger {
      *
      * @return An array containing all valid HTTP methods.
      */
-    String[] methods() default {};
+    HttpMethod[] methods() default {};
 
     /**
      * <p>Determines what keys, if any, need to be present on the request in order to invoke the function. The authorization
