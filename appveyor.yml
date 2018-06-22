@@ -25,7 +25,6 @@ build_script:
   - ps: mkdir .pkg
   
 artifacts:
-  - path: '*.nupkg'
   - path: 'azure-functions-java-library/target/**.jar'
 
 cache:
