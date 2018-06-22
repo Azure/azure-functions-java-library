@@ -27,6 +27,6 @@ package com.microsoft.azure.functions;
  * use the {@code com.microsoft.azure.functions.annotation.HttpTrigger.authLevel()} property with Slack webhooks.</li>
  * </ul>
  */
-public enum HttpWebHookType {
+public enum WebHookType {
     NONE, GENERICJSON, GITHUB, SLACK;
 }
