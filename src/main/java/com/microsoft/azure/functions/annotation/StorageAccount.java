@@ -12,11 +12,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * <p>Apply this annotation to a method if you have multiple Azure Storage triggers/input/output in that method which
+ * share the same app setting name of Azure Storage connection string.</p>
  *
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface StorageAccount {
+    /**
+     * Defines the app setting name that contains the Azure Storage connection string.
+     * @return The app setting name of the connection string.
+     */
     String value();
 }
