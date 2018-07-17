@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Place this on a parameter whose value would be written to twilio SMS.
+ * <p>Place this on a parameter whose value would be sent through twilio SMS.
  * The parameter type should be OutputBinding&lt;T&gt;, where T could be one of:</p>
  *
  * <ul>
@@ -43,31 +43,31 @@ public @interface TwilioSmsOutput {
     String dataType() default "";
 
     /**
-     * Defines the account SID of Twilio SMS to which to write.
+     * Defines the account SID of Twilio SMS to send.
      * @return The Twilio SMS account SID string.
      */
     String accountSid();
 
     /**
-     * Defines the authorization token of Twilio SMS to which to write.
+     * Defines the authorization token of Twilio SMS to send.
      * @return The Twilio SMS authorization token string.
      */
     String authToken();
 
     /**
-     * Defines the target of Twilio SMS to which to write.
+     * Defines the target of Twilio SMS to send.
      * @return The Twilio SMS target string.
      */
     String to();
 
     /**
-     * Defines the source of Twilio SMS to which to write.
+     * Defines the source of Twilio SMS to send.
      * @return The Twilio SMS source string.
      */
     String from();
 
     /**
-     * Defines the content body of Twilio SMS to which to write.
+     * Defines the content body of Twilio SMS to send.
      * @return The Twilio SMS content body string.
      */
     String body();
