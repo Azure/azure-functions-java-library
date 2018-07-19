@@ -67,6 +67,15 @@ public @interface HttpTrigger {
      */
     String name();
 
+    /**
+     * <p>Defines how Functions runtime should treat the parameter value. Possible values are:</p>
+     * <ul>
+     *     <li>"": get the value as a string, and try to deserialize to actual parameter type like POJO</li>
+     *     <li>string: always get the value as a string</li>
+     *     <li>binary: get the value as a binary data, and try to deserialize to actual parameter type byte[]</li>
+     * </ul>
+     * @return The dataType which will be used by the Functions runtime.
+     */
     String dataType() default "";
 
     /**
