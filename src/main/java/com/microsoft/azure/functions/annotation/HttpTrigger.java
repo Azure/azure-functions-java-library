@@ -33,7 +33,8 @@ import com.microsoft.azure.functions.WebHookType;
  *  public HttpResponseMessage&lt;String&gt; helloFunction(
  *    {@literal @}HttpTrigger(name = "req",
  *                  methods = {HttpMethod.GET},
- *                  authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request) {
+ *                  authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request
+ *  ) {
  *     ....
  *  }</pre>
  *
@@ -62,27 +63,26 @@ import com.microsoft.azure.functions.WebHookType;
  * {@literal @}FunctionName("readHttpName")
  *  public String readName(
  *    {@literal @}HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
- *     final HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request) {
+ *     final HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request
+ *  ) {
  *       String name = request.getBody().orElseGet(() -&gt; request.getQueryParameters().get("name"));
  *       return name == null ?
  *              "Please pass a name on the query string or in the request body" :
  *              "Hello " + name;
- *  }
- * </pre>
+ *  }</pre>
  * 
  * <p>The following example shows a webhook trigger binding in Java function. The function logs GitHub issue comments.</p>
  * 
  * <pre>
  * {@literal @}FunctionName("logGithubIssues")
  *  public String logIssues(
- *    {@literal @}HttpTrigger(name = "req", webHookType = WebHookType.GITHUB)
- *     final String content,
- *     ExecutionContext context) {
+ *    {@literal @}HttpTrigger(name = "req", webHookType = WebHookType.GITHUB) final String content,
+ *     ExecutionContext context
+ *  ) {
  *       context.getLogger().info("WebHook was triggered!");
  *       context.getLogger().info("Content is " + content);
  *       return "New GitHub comment: " + content;
- *  }
- * </pre>
+ *  }</pre>
  * 
  * @see com.microsoft.azure.functions.HttpRequestMessage
  * @see com.microsoft.azure.functions.HttpResponseMessage
@@ -131,7 +131,8 @@ public @interface HttpTrigger {
      *                    route = "products/{category:alpha}/{id:int}") HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request,
      *      {@literal @}BindingName("category") String category,
      *      {@literal @}BindingName("id") int id,
-     *       final ExecutionContext context) {
+     *       final ExecutionContext context
+     *  ) {
      *           ....
      *           context.getLogger().info("We have " + category + " with id " + id);
      *           ....
