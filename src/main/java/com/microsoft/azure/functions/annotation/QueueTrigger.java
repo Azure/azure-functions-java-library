@@ -21,16 +21,15 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
- * <p>The following example shows a storage queue trigger which logs the message:</p>
+ * <p>The following example shows a Java function that polls the "myqueue-items" queue and writes a log each time a
+ * queue item is processed.</p>
  *
- * <pre>{@literal @}FunctionName("queueprocessor")
- * public void run(
- *    {@literal @}QueueTrigger(name = "msg",
- *                   queueName = "myqueuename",
- *                   connection = "myconnvarname") String message,
+ * <pre>{@literal @}FunctionName("queueMonitor")
+ * public void logQueueItem(
+ *    {@literal @}QueueTrigger(name = "msg", queueName = "myqueue-items", connection = "AzureWebJobsStorage") String message,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(message);
+ *     context.getLogger().info("Queue message processed: " + message);
  * }</pre>
  *
  * @since 1.0.0
