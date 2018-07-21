@@ -20,7 +20,18 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
+ * <p>The following example shows a Java function that adds a document to a database, using data provided in message from
+ * Queue storage.</p>
  *
+ * <pre>{@literal @}FunctionName("getItem")
+ *{@literal @}CosmosDBOutput(name = "database", databaseName = "ToDoList", collectionName = "Items", connectionStringSetting = "AzureCosmosDBConnection")
+ * public String cosmosDbQueryById(
+ *    {@literal @}QueueTrigger(name = "msg", queueName = "myqueue-items", connection = "AzureWebJobsStorage") String message,
+ *     final ExecutionContext context
+ * ) {
+ *     return "{ id: " + System.currentTimeMillis() + ", Description: " + message + " }";
+ * }</pre>
+ * 
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
