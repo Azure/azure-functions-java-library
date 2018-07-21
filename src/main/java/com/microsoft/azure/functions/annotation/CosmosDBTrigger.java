@@ -21,18 +21,20 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
- * <p>The following example shows a cosmos db trigger which logs the count of the returned items:</p>
+ * <p>The following example shows a Java function that is invoked when there are inserts or updates in the specified
+ * database and collection.</p>
  *
- * <pre>{@literal @}FunctionName("cdbprocessor")
- * public void cosmosDbProcessor(
- *    {@literal @}CosmosDBTrigger(name = "items",
- *                      databaseName = "mydbname",
- *                      collectionName = "mycollname",
- *                      leaseCollectionName = "",
- *                      connectionStringSetting = "myconnvarname") MyDataItem[] items,
+ * <pre>{@literal @}FunctionName("cosmosDBMonitor")
+ * public void cosmosDbLog(
+ *    {@literal @}CosmosDBTrigger(name = "database",
+ *                      databaseName = "ToDoList",
+ *                      collectionName = "Items",
+ *                      leaseCollectionName = "leases",
+ *                      createLeaseCollectionIfNotExists = true,
+ *                      connectionStringSetting = "AzureCosmosDBConnection") String[] items,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(items.length);
+ *     context.getLogger().info(items.length + "item(s) is/are changed.");
  * }</pre>
  *
  * @since 1.0.0
