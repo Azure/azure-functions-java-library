@@ -19,15 +19,14 @@ import java.lang.annotation.Target;
  * <p>An example of using the timer trigger is shown below, where the {@code keepAlive} function is set to trigger and
  * execute every five minutes:</p>
  *
- * <pre>
- * {@literal @}FunctionName("keepAlive")
- *  public void keepAlive(
+ * <pre>{@literal @}FunctionName("keepAlive")
+ * public void keepAlive(
  *    {@literal @}TimerTrigger(name = "keepAliveTrigger", schedule = "0 *&#47;5 * * * *") String timerInfo,
  *     ExecutionContext context
- *  ) {
- *      // timeInfo is a JSON string, you can deserialize it to an object using your favorite JSON library
- *      context.getLogger().info("Timer is triggered: " + timerInfo);
- *  }</pre>
+ * ) {
+ *     // timeInfo is a JSON string, you can deserialize it to an object using your favorite JSON library
+ *     context.getLogger().info("Timer is triggered: " + timerInfo);
+ * }</pre>
  *
  * @since 1.0.0
  */

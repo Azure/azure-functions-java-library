@@ -20,6 +20,15 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
+ * <p>The following example shows a Java function that writes a message to an event hub:</p>
+ * 
+ * <pre>{@literal @}FunctionName("keepAlive")
+ *{@literal @}EventHubOutput(name = "event", eventHubName = "samples-workitems", connection = "AzureEventHubConnection")
+ * public String keepAlive(
+ *    {@literal @}TimerTrigger(name = "keepAliveTrigger", schedule = "0 *&#47;5 * * * *") String timerInfo
+ * ) {
+ *     return LocalDateTime.now().toString();
+ * }</pre>
  *
  * @since 1.0.0
  */
