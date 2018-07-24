@@ -22,26 +22,6 @@ import java.lang.annotation.Target;
  * </ul>
  *
  *
- * <p>The following example shows a Java function that retrieves a single document. The function is triggered by an
- * HTTP request that uses a query string to specify the ID to look up. That ID is used to retrieve a ToDoItem document
- * from the specified database and collection.</p>
- * 
- * <pre>{@literal @}FunctionName("getItem")
- * public String cosmosDbQueryById(
- *    {@literal @}HttpTrigger(name = "req",
- *                  methods = {HttpMethod.GET},
- *                  authLevel = AuthorizationLevel.ANONYMOUS) Optional&lt;String&gt; dummy,
- *    {@literal @}CosmosDBInput(name = "database",
- *                      databaseName = "ToDoList",
- *                      collectionName = "Items",
- *                      leaseCollectionName = "",
- *                      id = "{Query.id}"
- *                      connectionStringSetting = "AzureCosmosDBConnection") Optional&lt;String&gt; item,
- *     final ExecutionContext context
- * ) {
- *     return item.orElse("Not found");
- * }</pre>
- * 
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
