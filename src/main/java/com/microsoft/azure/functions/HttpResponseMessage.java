@@ -59,6 +59,17 @@ public interface HttpResponseMessage {
         Builder status(HttpStatus status);
 
         /**
+         * Sets the status code to be used in the HttpResponseMessage object. 
+         * Custom values may be provided as long they respect the classes 
+         * (1xx, 2xx, 3xx, 4xx, 5xx) in accordance to RFC 2616 Section 6.1.1.
+         * 
+         * @param status A valid HTTP status code representing the outcome of the HTTP request. 
+         * 
+         * @return this builder
+         */
+        Builder status(int httpStatus);
+
+        /**
          * Adds a (key, value) header to the response.
          * 
          * @param key   The key of the header value.
