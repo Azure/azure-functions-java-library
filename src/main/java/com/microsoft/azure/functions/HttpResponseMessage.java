@@ -22,7 +22,7 @@ public interface HttpResponseMessage {
      * 
      * @return the status code set on the HttpResponseMessage instance.
      */
-    HttpStatus getStatus();
+    int getHttpStatus();
 
     /**
      * Returns a header value for the given key.
@@ -63,7 +63,7 @@ public interface HttpResponseMessage {
          * Custom values may be provided as long they respect the classes 
          * (1xx, 2xx, 3xx, 4xx, 5xx) in accordance to RFC 2616 Section 6.1.1.
          * 
-         * @param status A valid HTTP status code representing the outcome of the HTTP request. 
+         * @param httpStatus A valid HTTP status code representing the outcome of the HTTP request. 
          * 
          * @return this builder
          */
