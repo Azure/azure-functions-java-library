@@ -20,7 +20,23 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
- *
+ * <p>The following example is a Java function that uses a queue trigger and an input blob binding. The queue message
+ * contains the name of the blob, and the function logs the size of the blob.</p>
+ * 
+ * <pre>{@literal @}FunctionName("getBlobSize")
+ *{@literal @}StorageAccount("AzureWebJobsStorage")
+ * public void blobSize(
+ *    {@literal @}QueueTrigger(name = "filename",
+ *                   queueName = "myqueue-items") String filename,
+ *    {@literal @}BlobInput(name = "file",
+ *                dataType = "binary",
+ *                path = "samples-workitems/{queueTrigger}") byte[] content,
+ *     final ExecutionContext context
+ * ) {
+ *     context.getLogger().info("The size of \"" + filename + "\" is: " + content.length + " bytes");
+ * }</pre>
+ * 
+ * 
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)

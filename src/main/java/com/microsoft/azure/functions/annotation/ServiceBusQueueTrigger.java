@@ -21,16 +21,14 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
- * <p>The following example shows a service bus queue trigger which logs the queue message:</p>
+ * <p>The following example shows a Java function that logs a Service Bus queue message:</p>
  *
- * <pre>{@literal @}FunctionName("sbprocessor")
- * public void serviceBusProcess(
- *    {@literal @}ServiceBusQueueTrigger(name = "msg",
- *                             queueName = "myqueuename",
- *                             connection = "myconnvarname") String message,
+ * <pre>{@literal @}FunctionName("serviceBusMonitor")
+ * public void logServiceBusMessage(
+ *    {@literal @}ServiceBusQueueTrigger(name = "msg", queueName = "myqueue", connection = "AzureServiceBusConnection") final String message,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(message);
+ *     context.getLogger().info("Message is received: " + message);
  * }</pre>
  *
  * @since 1.0.0

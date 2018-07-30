@@ -20,6 +20,21 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
+ * <p>The following example shows blob input and output bindings in a Java function. The function makes a copy of
+ * a text blob. The function is triggered by a queue message that contains the name of the blob to copy. The new
+ * blob is named {originalblobname}-Copy.</p>
+ * 
+ * <pre>{@literal @}FunctionName("copyTextBlob")
+ *{@literal @}StorageAccount("AzureWebJobsStorage")
+ *{@literal @}BlobOutput(name = "target", path = "samples-workitems/{queueTrigger}-Copy")
+ * public String blobCopy(
+ *    {@literal @}QueueTrigger(name = "filename",
+ *                   queueName = "myqueue-items") String filename,
+ *    {@literal @}BlobInput(name = "source",
+ *                path = "samples-workitems/{queueTrigger}") String content
+ * ) {
+ *     return content;
+ * }</pre>
  *
  * @since 1.0.0
  */

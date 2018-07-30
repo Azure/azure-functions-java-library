@@ -32,8 +32,9 @@ import com.microsoft.azure.functions.WebHookType;
  * {@literal @}FunctionName("hello")
  *  public HttpResponseMessage&lt;String&gt; helloFunction(
  *    {@literal @}HttpTrigger(name = "req",
- *                  methods = {"get"},
- *                  authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request) {
+ *                  methods = {HttpMethod.GET},
+ *                  authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request
+ *  ) {
  *     ....
  *  }</pre>
  *
@@ -54,6 +55,35 @@ import com.microsoft.azure.functions.WebHookType;
  * endpoints to be specified, and for these endpoints to be parameterized with arguments being bound to arguments
  * provided to the function at runtime.</p>
  *
+ * <p>The following example shows a Java function that looks for a name parameter either in the query string (HTTP GET)
+ * or the body (HTTP POST) of the HTTP request. Notice that the return value is used for the output binding, but a return
+ * value attribute isn't required.</p>
+ * 
+ * <pre>
+ * {@literal @}FunctionName("readHttpName")
+ *  public String readName(
+ *    {@literal @}HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
+ *     final HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request
+ *  ) {
+ *       String name = request.getBody().orElseGet(() -&gt; request.getQueryParameters().get("name"));
+ *       return name == null ?
+ *              "Please pass a name on the query string or in the request body" :
+ *              "Hello " + name;
+ *  }</pre>
+ * 
+ * <p>The following example shows a webhook trigger binding in Java function. The function logs GitHub issue comments.</p>
+ * 
+ * <pre>
+ * {@literal @}FunctionName("logGithubIssues")
+ *  public String logIssues(
+ *    {@literal @}HttpTrigger(name = "req", webHookType = WebHookType.GITHUB) final String content,
+ *     ExecutionContext context
+ *  ) {
+ *       context.getLogger().info("WebHook was triggered!");
+ *       context.getLogger().info("Content is " + content);
+ *       return "New GitHub comment: " + content;
+ *  }</pre>
+ * 
  * @see com.microsoft.azure.functions.HttpRequestMessage
  * @see com.microsoft.azure.functions.HttpResponseMessage
  * @since 1.0.0
@@ -96,12 +126,13 @@ public @interface HttpTrigger {
      * {@literal @}FunctionName("routeTest")
      *  public HttpResponseMessage&lt;String&gt; routeTest(
      *      {@literal @}HttpTrigger(name = "req",
-     *                    methods = {"get"},
+     *                    methods = {HttpMethod.GET},
      *                    authLevel = AuthorizationLevel.ANONYMOUS,
      *                    route = "products/{category:alpha}/{id:int}") HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request,
      *      {@literal @}BindingName("category") String category,
      *      {@literal @}BindingName("id") int id,
-     *       final ExecutionContext context) {
+     *       final ExecutionContext context
+     *  ) {
      *           ....
      *           context.getLogger().info("We have " + category + " with id " + id);
      *           ....

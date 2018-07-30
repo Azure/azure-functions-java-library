@@ -22,18 +22,19 @@ import java.lang.annotation.Target;
  * </ul>
  *
  *
- * <p>The following example shows a storage blob trigger which logs the blob filename as well as its size:</p>
+ * <p>The following example shows a Java function that logs the filename and size when a blob is added or updated
+ * in the "samples-workitems" container:</p>
  *
- * <pre>{@literal @}FunctionName("blobprocessor")
- * public void run(
+ * <pre>{@literal @}FunctionName("blobMonitor")
+ * public void blobMonitor(
  *    {@literal @}BlobTrigger(name = "file",
  *                  dataType = "binary",
- *                  path = "myblob/filepath",
- *                  connection = "myconnvarname") byte[] content,
+ *                  path = "samples-workitems/{name}",
+ *                  connection = "AzureWebJobsStorage") byte[] content,
  *    {@literal @}BindingName("name") String filename,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info("Name: " + name + " Size: " + content.length + " bytes");
+ *     context.getLogger().info("Name: " + filename + ", Size: " + content.length + " bytes");
  * }</pre>
  *
  * @see com.microsoft.azure.functions.annotation.BindingName

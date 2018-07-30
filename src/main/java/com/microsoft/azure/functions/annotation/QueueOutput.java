@@ -20,6 +20,18 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
+ * <p>The following example shows a Java function that creates a queue message for each HTTP request received.</p>
+ * 
+ * <pre>{@literal @}FunctionName("httpToQueue")
+ *{@literal @}QueueOutput(name = "item", queueName = "myqueue-items", connection = "AzureWebJobsStorage")
+ * public String pushToQueue(
+ *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
+ *     final String message,
+ *    {@literal @}HttpOutput(name = "response") final OutputBinding&lt;String&gt; result
+ * ) {
+ *     result.setValue(message + " has been added.");
+ *     return message;
+ * }</pre>
  *
  * @since 1.0.0
  */

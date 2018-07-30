@@ -21,16 +21,14 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
- * <p>The following example shows an event hub trigger which logs the message:</p>
+ * <p>The following example shows a Java function that logs the message body of the event hub trigger:</p>
  *
- * <pre>{@literal @}FunctionName("ehprocessor")
- * public void eventHubProcessor(
- *    {@literal @}EventHubTrigger(name = "msg",
- *                      eventHubName = "myeventhubname",
- *                      connection = "myconnvarname") String message,
+ * <pre>{@literal @}FunctionName("eventHubMonitor")
+ * public void logEventHubMessage(
+ *    {@literal @}EventHubTrigger(name = "event", eventHubName = "samples-workitems", connection = "AzureEventHubConnection") String message,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(message);
+ *     context.getLogger().info("Event hub message received: " + message);
  * }</pre>
  *
  * @since 1.0.0
