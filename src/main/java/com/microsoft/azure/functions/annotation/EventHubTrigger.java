@@ -60,6 +60,13 @@ public @interface EventHubTrigger {
     String eventHubName();
 
     /**
+     * Cardinality of the trigger input. Choose 'One' if the input is a single message or 'Many' if the input is an array of messages. 'Many' is the default if unspecified
+     * @return An {@link Cardinality} value representing the Cardinality
+     */
+    Cardinality cardinality() default Cardinality.MANY;
+
+
+    /**
      * Defines the consumer group of the event hub to which to bind.
      * @return The event hub consumer group string.
      */
