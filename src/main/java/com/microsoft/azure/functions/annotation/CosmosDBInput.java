@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  *                      databaseName = "ToDoList",
  *                      collectionName = "Items",
  *                      leaseCollectionName = "",
- *                      id = "{Query.id}"
+ *                      id = "{Query.id}",
  *                      connectionStringSetting = "AzureCosmosDBConnection") Optional&lt;String&gt; item
  * ) {
  *     return item.orElse("Not found");
