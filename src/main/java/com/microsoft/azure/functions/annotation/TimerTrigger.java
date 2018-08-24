@@ -90,4 +90,16 @@ public @interface TimerTrigger {
      * @return A string representing a CRON expression that will be used to schedule a function to run.
      */
     String schedule();
+    
+    /**
+     * Run on startup.
+     * 
+     * If true, the function is invoked when the runtime starts. For example, the runtime starts when the 
+     * function app wakes up after going idle due to inactivity. When the function app restarts due to 
+     * function changes, and when the function app scales out. So runOnStartup should rarely if ever be set 
+     * to true, as it will make code execute at highly unpredictable times.
+     *
+     * @return If true, the function is invoked when the runtime starts.
+     */
+    boolean runOnStartup();
 }
