@@ -1,5 +1,8 @@
 # Building Microsoft Azure Functions in Java
 
+## azure-functions-maven plugin
+[How to use azure-functions-maven plugin to create, update, deploy and test azure java functions](https://docs.microsoft.com/en-us/java/api/overview/azure/maven/azure-functions-maven-plugin/readme?view=azure-java-stable)
+
 ## Prerequisites
 
 * JDK 8
