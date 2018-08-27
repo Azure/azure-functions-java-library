@@ -57,7 +57,7 @@ public @interface TimerTrigger {
      *
      * <p>Some examples of CRON expressions that could be used include:</p>
      *
-     * <table summary="CRON expression examples">
+     * <table>
      *     <tr>
      *         <th>Goal</th>
      *         <th>CRON Expression</th>
