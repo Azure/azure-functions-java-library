@@ -55,9 +55,8 @@ public @interface TimerTrigger {
      * A <a href="http://en.wikipedia.org/wiki/Cron#CRON_expression">CRON expression</a> in the format
      * {@code {second} {minute} {hour} {day} {month} {day-of-week}}.
      *
-     * <p>Some examples of CRON expressions that could be used include:</p>
-     *
      * <table>
+     *     <caption>A table showing some examples of CRON expressions that could be used.</caption>
      *     <tr>
      *         <th>Goal</th>
      *         <th>CRON Expression</th>
