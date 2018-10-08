@@ -17,12 +17,16 @@ import java.lang.annotation.Target;
  * this annotation.
  *
  * <p>An example of using the timer trigger is shown below, where the {@code keepAlive} function is set to trigger and
- * execute every four minutes:</p>
+ * execute every five minutes:</p>
  *
- * <pre>
- * {@literal @}FunctionName("keepAlive")
- *  public void keepAlive(@TimerTrigger(name = "keepAliveTrigger", schedule = "0 *&#47;4 * * * *") String timerInfo) { .. }
- * </pre>
+ * <pre>{@literal @}FunctionName("keepAlive")
+ * public void keepAlive(
+ *    {@literal @}TimerTrigger(name = "keepAliveTrigger", schedule = "0 *&#47;5 * * * *") String timerInfo,
+ *     ExecutionContext context
+ * ) {
+ *     // timeInfo is a JSON string, you can deserialize it to an object using your favorite JSON library
+ *     context.getLogger().info("Timer is triggered: " + timerInfo);
+ * }</pre>
  *
  * @since 1.0.0
  */
@@ -36,15 +40,23 @@ public @interface TimerTrigger {
      */
     String name();
 
+    /**
+     * <p>Defines how Functions runtime should treat the parameter value. Possible values are:</p>
+     * <ul>
+     *     <li>"": get the value as a string, and try to deserialize to actual parameter type like POJO</li>
+     *     <li>string: always get the value as a string</li>
+     *     <li>binary: get the value as a binary data, and try to deserialize to actual parameter type byte[]</li>
+     * </ul>
+     * @return The dataType which will be used by the Functions runtime.
+     */
     String dataType() default "";
 
     /**
      * A <a href="http://en.wikipedia.org/wiki/Cron#CRON_expression">CRON expression</a> in the format
      * {@code {second} {minute} {hour} {day} {month} {day-of-week}}.
      *
-     * <p>Some examples of CRON expressions that could be used include:</p>
-     *
-     * <table summary="CRON expression examples">
+     * <table>
+     *     <caption>A table showing some examples of CRON expressions that could be used.</caption>
      *     <tr>
      *         <th>Goal</th>
      *         <th>CRON Expression</th>
