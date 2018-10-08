@@ -23,7 +23,7 @@ All the input and output bindings can be defined in `function.json` (not recomme
 Here is an example of a HttpTrigger Azure function in Java:
 
 
-```Java
+```java
 package com.example;
 
 import com.microsoft.azure.functions.annotation.*;
