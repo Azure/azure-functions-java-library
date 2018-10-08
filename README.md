@@ -18,6 +18,8 @@ Typically a function is invoked because of a trigger. Your function needs to pro
 
 All the input and output bindings can be defined in `function.json` (not recommended), or in the Java method by using annotations (recommended). All the types and annotations used in this document are included in the `azure-functions-java-library` package.
 
+### Sample
+
 Here is an example of a HttpTrigger Azure function in Java:
 
 
