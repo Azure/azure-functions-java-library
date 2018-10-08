@@ -12,7 +12,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import com.microsoft.azure.functions.HttpMethod;
-import com.microsoft.azure.functions.WebHookType;
 
 /**
  * <p>The HttpTrigger annotation is applied to Azure functions that will be triggered by a call to the HTTP endpoint that
@@ -69,19 +68,6 @@ import com.microsoft.azure.functions.WebHookType;
  *       return name == null ?
  *              "Please pass a name on the query string or in the request body" :
  *              "Hello " + name;
- *  }</pre>
- * 
- * <p>The following example shows a webhook trigger binding in Java function. The function logs GitHub issue comments.</p>
- * 
- * <pre>
- * {@literal @}FunctionName("logGithubIssues")
- *  public String logIssues(
- *    {@literal @}HttpTrigger(name = "req", webHookType = WebHookType.GITHUB) final String content,
- *     ExecutionContext context
- *  ) {
- *       context.getLogger().info("WebHook was triggered!");
- *       context.getLogger().info("Content is " + content);
- *       return "New GitHub comment: " + content;
  *  }</pre>
  * 
  * @see com.microsoft.azure.functions.HttpRequestMessage
@@ -171,11 +157,4 @@ public @interface HttpTrigger {
      * @return An {@link AuthorizationLevel} value representing the level required to access the function.
      */
     AuthorizationLevel authLevel() default AuthorizationLevel.FUNCTION;
-
-    /**
-     * Defines the WebHook type for this HttpTrigger
-     *
-     * @return A webhook type.
-     */
-    WebHookType webHookType() default WebHookType.NONE;
 }
