@@ -88,7 +88,7 @@ public class MyObject {
 
 When this function is invoked, the HTTP request payload will be passed as the `String` for argument `in`; and one entry will be retrieved from the Azure Table Storage and be passed to argument `obj` as `MyObject` type.
 
-To receive events in a batch when using EventHubTrigger, set cardinality to many
+To receive events in a batch when using EventHubTrigger, set cardinality to many and change input type to List<>
 
 ```Java
 @FunctionName("ProcessIotMessages")
