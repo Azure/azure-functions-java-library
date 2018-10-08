@@ -20,9 +20,10 @@ All the input and output bindings can be defined in `function.json` (not recomme
 
 ### Sample
 
-Here is an example for a simple Azure Function written in Java:
+Here is an example of a HttpTrigger Azure function in Java:
 
-```Java
+
+```java
 package com.example;
 
 import com.microsoft.azure.functions.annotation.*;
@@ -89,6 +90,19 @@ public class MyObject {
 
 When this function is invoked, the HTTP request payload will be passed as the `String` for argument `in`; and one entry will be retrieved from the Azure Table Storage and be passed to argument `obj` as `MyObject` type.
 
+To receive events in a batch when using EventHubTrigger, set cardinality to many and change input type to List<>
+
+```Java
+@FunctionName("ProcessIotMessages")
+    public void processIotMessages(
+        @EventHubTrigger(name = "message", eventHubName = "%AzureWebJobsEventHubPath%", connection = "AzureWebJobsEventHubSender", cardinality = Cardinality.MANY) List<String> messages,
+        final ExecutionContext context)
+    {
+        context.getLogger().info("Java Event Hub trigger received messages. Batch size: " + messages.size());
+    }
+
+```
+
 ## Outputs
 
 Outputs can be expressed in return value or output parameters. If there is only one output, you are recommended to use the return value. For multiple outputs, you have to use **output parameters**.
@@ -132,7 +146,7 @@ public class MyClass {
 }
 ```
 
-Of course you could use `OutputBinding<byte[]>` type to make a binary output value (for parameters); for return values, just use `byte[]`.
+Use `OutputBinding<byte[]>` type to make a binary output value (for parameters); for return values, just use `byte[]`.
 
 ## Execution Context
 
