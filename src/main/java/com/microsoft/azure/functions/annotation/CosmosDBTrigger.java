@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * data is changed. The parameter type can be one of the following:</p>
  *
  * <ul>
- *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Some native Java types such as String</li>
  *     <li>Nullable values using Optional&lt;T&gt;</li>
  *     <li>Any POJO type</li>
  * </ul>
@@ -31,10 +31,13 @@ import java.lang.annotation.Target;
  *                      collectionName = "Items",
  *                      leaseCollectionName = "leases",
  *                      createLeaseCollectionIfNotExists = true,
- *                      connectionStringSetting = "AzureCosmosDBConnection") String[] items,
+ *                      connectionStringSetting = "AzureCosmosDBConnection") List&lt;Map&lt;String, String&gt;&gt; items,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(items.length + "item(s) is/are changed.");
+ *     context.getLogger().info(items.size() + " item(s) is/are inserted.");
+ *     if (!items.isEmpty()) {
+ *         context.getLogger().info("The ID of the first item is: " + items.get(0).get("id"));
+ *     }
  * }</pre>
  *
  * @since 1.0.0

@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * The parameter type should be OutputBinding&lt;T&gt;, where T could be one of:</p>
  *
  * <ul>
- *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Some native Java types such as String</li>
  *     <li>Any POJO type</li>
  * </ul>
  *
@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * public String cosmosDbAddItem(
  *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) final String message
  * ) {
- *     return "{ id: " + System.currentTimeMillis() + ", Description: " + message + " }";
+ *     return "{ \"id\": \"" + System.currentTimeMillis() + "\", \"description\": \"" + message + "\" }";
  * }</pre>
  * 
  * @since 1.0.0
