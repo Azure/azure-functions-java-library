@@ -16,11 +16,29 @@ import java.lang.annotation.Target;
  * The parameter type can be one of the following:</p>
  *
  * <ul>
- *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Some native Java types such as String</li>
  *     <li>Nullable values using Optional&lt;T&gt;</li>
  *     <li>Any POJO type</li>
  * </ul>
  *
+ *
+ * <p>The following example shows a Java function that retrieves a single document. The function is triggered by an
+ * HTTP request that uses a query string to specify the ID to look up. That ID is used to retrieve a ToDoItem document
+ * from the specified database and collection. A sample URL would be like: http://localhost:7071/api/getItem?id=myid.</p>
+ * 
+ * <pre>{@literal @}FunctionName("getItem")
+ * public String cosmosDbQueryById(
+ *    {@literal @}HttpTrigger(name = "req",
+ *                  methods = {HttpMethod.GET},
+ *                  authLevel = AuthorizationLevel.ANONYMOUS) Optional&lt;String&gt; dummy,
+ *    {@literal @}CosmosDBInput(name = "database",
+ *                      databaseName = "ToDoList",
+ *                      collectionName = "Items",
+ *                      id = "{Query.id}",
+ *                      connectionStringSetting = "AzureCosmosDBConnection") Optional&lt;String&gt; item
+ * ) {
+ *     return item.orElse("Not found");
+ * }</pre>
  *
  * @since 1.0.0
  */

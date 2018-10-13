@@ -16,23 +16,28 @@ import java.lang.annotation.Target;
  * data is changed. The parameter type can be one of the following:</p>
  *
  * <ul>
- *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Some native Java types such as String</li>
  *     <li>Nullable values using Optional&lt;T&gt;</li>
  *     <li>Any POJO type</li>
  * </ul>
  *
- * <p>The following example shows a cosmos db trigger which logs the count of the returned items:</p>
+ * <p>The following example shows a Java function that is invoked when there are inserts or updates in the specified
+ * database and collection.</p>
  *
- * <pre>{@literal @}FunctionName("cdbprocessor")
- * public void cosmosDbProcessor(
- *    {@literal @}CosmosDBTrigger(name = "items",
- *                      databaseName = "mydbname",
- *                      collectionName = "mycollname",
- *                      leaseCollectionName = "",
- *                      connectionStringSetting = "myconnvarname") MyDataItem[] items,
+ * <pre>{@literal @}FunctionName("cosmosDBMonitor")
+ * public void cosmosDbLog(
+ *    {@literal @}CosmosDBTrigger(name = "database",
+ *                      databaseName = "ToDoList",
+ *                      collectionName = "Items",
+ *                      leaseCollectionName = "leases",
+ *                      createLeaseCollectionIfNotExists = true,
+ *                      connectionStringSetting = "AzureCosmosDBConnection") List&lt;Map&lt;String, String&gt;&gt; items,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(items.length);
+ *     context.getLogger().info(items.size() + " item(s) is/are inserted.");
+ *     if (!items.isEmpty()) {
+ *         context.getLogger().info("The ID of the first item is: " + items.get(0).get("id"));
+ *     }
  * }</pre>
  *
  * @since 1.0.0

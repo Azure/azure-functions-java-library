@@ -16,11 +16,20 @@ import java.lang.annotation.Target;
  * The parameter type should be OutputBinding&lt;T&gt;, where T could be one of:</p>
  *
  * <ul>
- *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Some native Java types such as String</li>
  *     <li>Any POJO type</li>
  * </ul>
  *
+ * <p>The following example shows a Java function that adds a document to a database, using data provided in the body of an HTTP Post request.</p>
  *
+ * <pre>{@literal @}FunctionName("addItem")
+ *{@literal @}CosmosDBOutput(name = "database", databaseName = "ToDoList", collectionName = "Items", connectionStringSetting = "AzureCosmosDBConnection")
+ * public String cosmosDbAddItem(
+ *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) final String message
+ * ) {
+ *     return "{ \"id\": \"" + System.currentTimeMillis() + "\", \"description\": \"" + message + "\" }";
+ * }</pre>
+ * 
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)

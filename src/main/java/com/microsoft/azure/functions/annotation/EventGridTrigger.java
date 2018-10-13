@@ -21,14 +21,14 @@ import java.lang.annotation.Target;
  *     <li>Any POJO type</li>
  * </ul>
  *
- * <p>The following example shows an event grid trigger which prints out the object:</p>
+ * <p>The following example shows a Java function that prints out an event:</p>
  *
- * <pre>{@literal @}FunctionName("egprocessor")
- * public void eventGridProcessor(
- *    {@literal @}EventGridTrigger(name = "obj") MyModel obj,
+ * <pre>{@literal @}FunctionName("eventGridMonitor")
+ * public void logEvent(
+ *    {@literal @}EventGridTrigger(name = "event") String content,
  *     final ExecutionContext context
  * ) {
- *     context.getLogger().info(obj.toString());
+ *     context.getLogger().info(content);
  * }</pre>
  *
  * @since 1.0.0
