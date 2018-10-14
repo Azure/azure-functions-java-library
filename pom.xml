@@ -4,6 +4,11 @@
   <artifactId>azure-functions-java-library</artifactId>
   <version>1.0.0-beta-6</version>
   <packaging>jar</packaging>
+  <parent>
+    <groupId>com.microsoft.maven</groupId>
+    <artifactId>java-8-parent</artifactId>
+    <version>8.0.0-SNAPSHOT</version>
+  </parent>
 
   <name>Microsoft Azure Functions Java Core Types</name>
   <description>This package contains all Java interfaces and annotations to interact with Microsoft Azure functions runtime.</description>
@@ -11,8 +16,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>4.12</junit.version>
-    <mockito.version>2.11.0</mockito.version>
   </properties>
 
   <licenses>
@@ -43,25 +46,36 @@
     </developer>
   </developers>
 
+  <repositories> 
+    <repository>
+      <id>maven.snapshots</id>
+      <name>Maven Central Snapshot Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <dependencies>
 
     <!-- test -->
     <dependency>
         <groupId>org.reflections</groupId>
         <artifactId>reflections</artifactId>
-        <version>0.9.11</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>${mockito.version}</version>
         <scope>test</scope>
     </dependency>
 
@@ -71,53 +85,20 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.0.1</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.21.0</version>
-            <configuration>
-                <workingDirectory>${project.build.directory}</workingDirectory>
-                <systemProperties>
-                    <property>
-                        <name>testing-project-jar</name>
-                        <value>${project.artifactId}-${project.version}-tests.jar</value>
-                    </property>
-                </systemProperties>
-            </configuration>
-        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
-  
+
 </project>
