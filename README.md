@@ -6,7 +6,7 @@ This project contains the Java API for building functions for the Azure Function
 
 ## Prerequisites
 
-* Java 8
+* Java 8 or above.
 
 ## Summary
 
