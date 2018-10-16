@@ -45,6 +45,11 @@
       <name>Kevin Zhao</name>
       <email>kevinzha@microsoft.com</email>
     </developer>
+    <developer>
+      <id>pgopa</id>
+      <name>Pragnag Gopa</name>
+      <email>pgopa@microsoft.com</email>
+    </developer>
   </developers>
 
   <repositories> 
