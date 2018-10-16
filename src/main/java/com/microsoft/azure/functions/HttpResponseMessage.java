@@ -1,14 +1,12 @@
 /**
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for
- * license information.
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. See
+ * License.txt in the project root for license information.
  */
 
 package com.microsoft.azure.functions;
 
 /**
- * An HttpResponseMessage instance is returned by Azure Functions methods that
- * are triggered by an
+ * An HttpResponseMessage instance is returned by Azure Functions methods that are triggered by an
  * {@link com.microsoft.azure.functions.annotation.HttpTrigger}.
  *
  * @see com.microsoft.azure.functions.annotation.HttpTrigger
@@ -18,18 +16,26 @@ package com.microsoft.azure.functions;
 public interface HttpResponseMessage {
 
     /**
-     * Returns the status code set on the HttpResponseMessage instance.
+     * Returns the HTTP status code set on the HttpResponseMessage instance.
      * 
      * @return the status code set on the HttpResponseMessage instance.
      */
-    HttpStatus getStatus();
+    HttpStatusType getHttpStatus();
+
+    /**
+     * Returns the HTTP status code set on the HttpResponseMessage instance.
+     * 
+     * @return the status code set on the HttpResponseMessage instance.
+     */
+    default int getStatus() {
+        return getHttpStatus().value();
+    }
 
     /**
      * Returns a header value for the given key.
      * 
      * @param key The key for which the header value is sought.
-     * @return Returns the value if the key has previously been added, or null if it
-     *         has not.
+     * @return Returns the value if the key has previously been added, or null if it has not.
      */
     String getHeader(String key);
 
@@ -49,14 +55,15 @@ public interface HttpResponseMessage {
     public static interface Builder {
 
         /**
-         * Sets the status code to be used in the HttpResponseMessage object.
+         * Sets the status code to be used in the HttpResponseMessage object. 
          * 
-         * @param status An HTTP status code representing the outcome of the HTTP
-         *               request.
+         * You can provide standard HTTP Status using enum values from {@link HttpStatus}, or 
+         * you can create a custom status code using {@link HttpStatusType#custom(int)}.
          * 
+         * @param status An HTTP status code representing the outcome of the HTTP request.
          * @return this builder
          */
-        Builder status(HttpStatus status);
+        Builder status(HttpStatusType status);
 
         /**
          * Adds a (key, value) header to the response.
@@ -76,8 +83,7 @@ public interface HttpResponseMessage {
         Builder body(Object body);
 
         /**
-         * Creates an instance of HttpMessageResponse with the values configured
-         * in this builder.
+         * Creates an instance of HttpMessageResponse with the values configured in this builder.
          * 
          * @return an HttpMessageResponse object
          */
