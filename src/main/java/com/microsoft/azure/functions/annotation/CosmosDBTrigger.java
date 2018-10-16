@@ -213,7 +213,7 @@ public @interface CosmosDBTrigger {
      * the Azure Cosmos DB service. Values should be comma-separated. example,
      * PreferredLocations = "East US,South Central US,North Europe"
      * 
-     * @return preferred locations (regions) for geo-replicated
+     * @return preferred locations (regions) for geo-replicated database accounts
      */
-    String PreferredLocations();
+    String preferredLocations();
 }
