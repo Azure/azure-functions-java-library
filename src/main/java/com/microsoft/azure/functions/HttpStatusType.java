@@ -10,7 +10,7 @@ public interface HttpStatusType {
     public int value();
 
     /**
-     * Creates a custom (non-standard) HTTP Status code. Reason can be null.
+     * Creates a custom (non-standard) HTTP Status code. 
      * @param code for HttpStatusCode
      * @return HttpStatusType 
      */
