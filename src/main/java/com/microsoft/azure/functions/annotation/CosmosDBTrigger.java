@@ -95,21 +95,21 @@ public @interface CosmosDBTrigger {
      * 
      * @return Connection string for the lease collection.
      */
-    String leaseConnectionStringSetting();
+    String leaseConnectionStringSetting() default "";
 
     /**
      * Defines the lease collection name of the CosmosDB to which to bind.
      * 
      * @return The lease collection name string.
      */
-    String leaseCollectionName();
+    String leaseCollectionName() default "";
 
     /**
      * Defines Name of the database containing the lease collection.
      * 
      * @return Name of the database for lease collection.
      */
-    String leaseDatabaseName();
+    String leaseDatabaseName() default "";
 
     /**
      * Defines whether to create a new lease collection if not exists.
@@ -123,7 +123,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return throughput
      */
-    int leasesCollectionThroughput();
+    int leasesCollectionThroughput() default -1;
 
     /**
      * Defines a prefix to be used within a Leases collection for this Trigger.
@@ -131,7 +131,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return LeaseCollectionPrefix
      */
-    String leaseCollectionPrefix();
+    String leaseCollectionPrefix() default "";
 
     /**
      * Customizes the amount of milliseconds between lease checkpoints. Default is
@@ -139,7 +139,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return checkpointInterval
      */
-    int checkpointInterval();
+    int checkpointInterval() default -1;
 
     /**
      * Customizes the amount of documents between lease checkpoints. Default is
@@ -147,7 +147,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return CheckpointDocumentCount
      */
-    int checkpointDocumentCount();
+    int checkpointDocumentCount() default -1;
 
     /**
      * Customizes the delay in milliseconds in between polling a partition for new
@@ -156,7 +156,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return feedPollDelay
      */
-    int feedPollDelay();
+    int feedPollDelay() default 5000;
 
     /**
      * Defines the app setting name that contains the CosmosDB connection string.
@@ -171,7 +171,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return renew interval in milliseconds for all leases
      */
-    int leaseRenewInterval();
+    int leaseRenewInterval() default 17000;
 
     /**
      * Customizes the interval in milliseconds to kick off a task to compute if
@@ -180,7 +180,7 @@ public @interface CosmosDBTrigger {
      * 
      * @return interval in milliseconds
      */
-    int leaseAcquireInterval();
+    int leaseAcquireInterval() default 13000;
 
     /**
      * Customizes the interval in milliseconds for which the lease is taken on a
@@ -190,14 +190,14 @@ public @interface CosmosDBTrigger {
      * 
      * @return interval in milliseconds for which the lease is taken
      */
-    int leaseExpirationInterval();
+    int leaseExpirationInterval() default 60000;
 
     /**
      * Customizes the maximum amount of items received in an invocation
      * 
      * @return maximum amount of items received
      */
-    int maxItemsPerInvocation();
+    int maxItemsPerInvocation() default -1;
 
     /**
      * Gets or sets whether change feed in the Azure Cosmos DB service should start
@@ -215,5 +215,5 @@ public @interface CosmosDBTrigger {
      * 
      * @return preferred locations (regions) for geo-replicated database accounts
      */
-    String preferredLocations();
+    String preferredLocations() default "";
 }

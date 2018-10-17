@@ -116,5 +116,5 @@ public @interface CosmosDBInput {
      * Defines partition key value for the lookup. May include binding parameters.
      * @return partition key value
      */
-    String partitionKey();
+    String partitionKey() default "";
 }
