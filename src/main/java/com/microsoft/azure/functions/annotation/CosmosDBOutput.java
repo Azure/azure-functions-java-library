@@ -99,7 +99,7 @@ public @interface CosmosDBOutput {
      * 
      * @return partitionKey of the created collection.
      */
-    String partitionKey();
+    String partitionKey() default "";
 
     /**
      * If CreateIfNotExists is true, defines the throughput of the created
@@ -107,7 +107,7 @@ public @interface CosmosDBOutput {
      * 
      * @return Throughput of the created collection.
      */
-    int collectionThroughput();
+    int collectionThroughput() default -1;
 
     /**
      * Enable to use with Multi Master accounts.
@@ -123,5 +123,5 @@ public @interface CosmosDBOutput {
      * 
      * @return PreferredLocations for geo-replicated database accounts
      */
-    String preferredLocations();
+    String preferredLocations() default "";
 }
