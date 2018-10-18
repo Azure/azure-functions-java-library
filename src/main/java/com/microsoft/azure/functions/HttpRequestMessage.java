@@ -52,11 +52,19 @@ public interface HttpRequestMessage<T> {
     T getBody();
 
     /**
-     * Returns a {@link HttpResponseMessage.Builder} instance to build a HTTP status code and no response body.
+     * Returns a {@link HttpResponseMessage.Builder} instance to build a HttpResponseMessage with standard HTTP status code and no response body.
      *
      * @param status The HTTP status code to return to the caller of the function.
      * @return An {@link HttpResponseMessage.Builder} instance containing the provided status and empty body.
      */
     HttpResponseMessage.Builder createResponseBuilder(HttpStatus status);
+
+    /**
+     * Returns a {@link HttpResponseMessage.Builder} instance to build a HttpResponseMessage with custome HTTP status code and no response body.
+     *
+     * @param status The HTTP status code to return to the caller of the function.
+     * @return An {@link HttpResponseMessage.Builder} instance containing the provided status and empty body.
+     */
+    HttpResponseMessage.Builder createResponseBuilder(HttpStatusType status);
 
 }

@@ -8,11 +8,14 @@ package com.microsoft.azure.functions;
 
 /**
  * Enum to represent HTTP Status codes.
+ * 
+ * This enum lists all standard HTTP 1.1 status lines. For custom codes, 
+ * please refer to {@link HttpStatusType#custom(int)}.
  *
  * @author Bruno Borges
  * @since 1.0
  */
-public enum HttpStatus {
+public enum HttpStatus implements HttpStatusType {
 
     // HTTP Status 100+
     CONTINUE(100), SWITCHING_PROTOCOLS(101), PROCESSING(102), CHECKPOINT(103),
@@ -39,7 +42,7 @@ public enum HttpStatus {
     BANDWIDTH_LIMIT_EXCEEDED(509), NOT_EXTENDED(510), NETWORK_AUTHENTICATION_REQUIRED(511);
 
     private final int value;
-
+    
     HttpStatus(int value) {
         this.value = value;
     }
@@ -54,7 +57,7 @@ public enum HttpStatus {
     }
 
     /**
-     * Maps the int code to an HttpStatus enum.
+     * Maps an int code to a standard HTTP status code.
      *
      * @param value for http code
      * @return HttpStatus enum
