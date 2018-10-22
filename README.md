@@ -8,6 +8,10 @@ This project contains the Java API for building functions for the Azure Function
 
 * Java 8
 
+## Parent POM
+
+Please see for details on Parent POM https://github.com/Microsoft/maven-java-parent
+
 ## Summary
 
 Azure Functions is capable of running Function Apps that may contain one or more functions grouped. A function should be a stateless method to process input and produce output. Although you are allowed to write instance methods, your function must not depend on any instance fields of the class. You need to make sure all the function methods are `public` accessible.
