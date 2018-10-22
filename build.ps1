@@ -20,9 +20,9 @@ Write-Host "atchetypeVersion: " $atchetypeVersion
 
 # Clone and install function maven plugin
 git clone https://github.com/Microsoft/azure-maven-plugins.git -b develop
-Push-Location -Path "./azure-maven-plugins/azure-functions-maven-plugin" -StackName libraryDir
+Push-Location -Path "./azure-maven-plugins" -StackName libraryDir
 Write-Host "Build and install azure-functions-maven-plugins" 
-cmd.exe /c '.\..\..\mvnBuildSkipTests.bat'
+cmd.exe /c '.\..\mvnBuildSkipTests.bat'
 StopOnFailedExecution
 Pop-Location -StackName "libraryDir"
 $pluginPom = Get-Content ".\azure-maven-plugins\azure-functions-maven-plugin\pom.xml" -Raw
