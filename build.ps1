@@ -8,8 +8,11 @@ function StopOnFailedExecution {
 
 # Clone and install function maven archetype      
 git clone https://github.com/Microsoft/azure-maven-archetypes.git -b develop
-mvn -f ".\azure-maven-archetypes\azure-functions-archetype\pom.xml" clean install -DskipTests -U
+Push-Location -Path "./azure-maven-archetypes/azure-functions-archetype" -StackName libraryDir
+Write-Host "Build and install azure-maven-archetypes" 
+cmd.exe /c '.\..\..\mvnBuildSkipTests.bat'
 StopOnFailedExecution
+Pop-Location -StackName "libraryDir"
 $archetypePom = Get-Content ".\azure-maven-archetypes\azure-functions-archetype\pom.xml" -Raw
 $archetypePom -match "<version>(.*)</version>"
 $atchetypeVersion = $matches[1]
@@ -17,31 +20,40 @@ Write-Host "atchetypeVersion: " $atchetypeVersion
 
 # Clone and install function maven plugin
 git clone https://github.com/Microsoft/azure-maven-plugins.git -b develop
-mvn -f ".\azure-maven-plugins\azure-functions-maven-plugin\pom.xml" clean install -DskipTests -U
+Push-Location -Path "./azure-maven-plugins/azure-functions-maven-plugin" -StackName libraryDir
+Write-Host "Build and install azure-functions-maven-plugins" 
+cmd.exe /c '.\..\..\mvnBuildSkipTests.bat'
 StopOnFailedExecution
+Pop-Location -StackName "libraryDir"
 $pluginPom = Get-Content ".\azure-maven-plugins\azure-functions-maven-plugin\pom.xml" -Raw
 $pluginPom -match "<version>(.*)</version>"
-$pluginVersion = $matches[1]
+$pluginVersion = "1.0.0-beta-8-SNAPSHOT"
 Write-Host "pluginVersion: " $pluginVersion
 
-# Get azure-functions-library version
+
+# Get azure-functions-library 
+Write-Host "Build and install azure-functions-java-library" 
+cmd.exe /c '.\mvnBuild.bat'
 $libraryPom = Get-Content "pom.xml" -Raw
 $libraryPom -match "<version>(.*)</version>"
 $libraryVersion = $matches[1]
 Write-Host "libraryVersion: " $libraryVersion
 
 # Generate HttpTrigger Function via archetype version built above
-mvn archetype:generate -DinteractiveMode=false -DarchetypeGroupId=com.microsoft.azure  -DarchetypeArtifactId=azure-functions-archetype -DgroupId=com.library.test -DartifactId=ci -Dversion=1.0-SNAPSHOT -DappName=e2etest -DappRegion=Westus -DresourceGroup=e2etestrg
-mvn archetype:generate -DarchetypeCatalog="local" -DarchetypeGroupId="com.microsoft.azure" -DarchetypeArtifactId="azure-functions-archetype" -DarchetypeVersion="1.17-SNAPSHOT" -DgroupId="com.microsoft" -DartifactId="e2etestproject" -Dversion="1.0-SNAPSHOT" -Dpackage="com.microsoft" -DappRegion="westus" -DresourceGroup="e2etest-java-functions-group" -DappName="e2etest-java-functions" -B
+md -Name ciTestDir
+Push-Location -Path "./ciTestDir" -StackName libraryDir
+Write-Host "Generating project with archetype" 
+mvn archetype:generate -DarchetypeCatalog="local" -DarchetypeGroupId="com.microsoft.azure" -DarchetypeArtifactId="azure-functions-archetype" -DarchetypeVersion="$atchetypeVersion" -DgroupId="com.microsoft" -DartifactId="e2etestproject" -Dversion="1.0-SNAPSHOT" -Dpackage="com.microsoft" -DappRegion="westus" -DresourceGroup="e2etest-java-functions-group" -DappName="e2etest-java-functions" -B
 StopOnFailedExecution
-
-#Update versions in the HttpTrigger pom.xml
-mvn versions:set-property -Dproperty=azure.functions.java.library.version -DnewVersion=$libraryVersion
-mvn versions:set-property -Dproperty=azure.functions.maven.plugin.version -DnewVersion=$pluginVersion
+Pop-Location -StackName "libraryDir"
 
 #Build HttpTrigger Function
-Push-Location -Path "./ci" -StackName libraryDir
+
+Push-Location -Path "./ciTestDir/e2etestproject" -StackName libraryDir
 Remove-Item -Recurse -Force "src/test" -ErrorAction Ignore
+cmd.exe /c .\..\..\updateVersions.bat $libraryVersion $pluginVersion
+StopOnFailedExecution
+#Update versions in the HttpTrigger pom.xml
 mvn clean package -DskipTests
 StopOnFailedExecution
 Pop-Location -StackName "libraryDir"

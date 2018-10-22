@@ -27,3 +27,6 @@ hs_err_pid*
 /.classpath
 /.settings/*
 .project
+/azure-maven-archetypes/
+/azure-maven-plugins/
+/ciTestDir/*
