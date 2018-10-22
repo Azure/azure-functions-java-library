@@ -20,15 +20,15 @@ public interface HttpResponseMessage {
      * 
      * @return the status code set on the HttpResponseMessage instance.
      */
-    HttpStatusType getHttpStatus();
+    HttpStatusType getStatus();
 
     /**
      * Returns the HTTP status code set on the HttpResponseMessage instance.
      * 
      * @return the status code set on the HttpResponseMessage instance.
      */
-    default int getStatus() {
-        return getHttpStatus().value();
+    default int getStatusCode() {
+        return getStatus().value();
     }
 
     /**
