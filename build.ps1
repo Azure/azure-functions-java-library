@@ -25,8 +25,8 @@ Write-Host "Build and install azure-functions-maven-plugins"
 cmd.exe /c '.\..\mvnBuildSkipTests.bat'
 StopOnFailedExecution
 Pop-Location -StackName "libraryDir"
-$pluginPom = Get-Content ".\azure-maven-plugins\azure-functions-maven-plugin\pom.xml" -Raw
-$pluginPom -match "<version>(.*)</version>"
+#$pluginPom = Get-Content ".\azure-maven-plugins\azure-functions-maven-plugin\pom.xml" -Raw
+#$pluginPom -match "<version>(.*)</version>"
 $pluginVersion = "1.0.0-beta-8-SNAPSHOT"
 Write-Host "pluginVersion: " $pluginVersion
 
