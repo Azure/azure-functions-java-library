@@ -31,9 +31,9 @@ $versions =$nospace -match "<version>(.*)<\/version>"
 $start = $versions[1].IndexOf('>')+1      
 $end = $versions[1].LastIndexOf('<')
 $substringLen = $end-$start
-$pluginPomVersion = $versions[1].substring($start, $substringLen)
-Write-Host "pluginPomVersion: " $pluginPomVersion
-if ([string]::IsNullOrEmpty($pluginPomVersion))
+$pluginVersion = $versions[1].substring($start, $substringLen)
+Write-Host "pluginPomVersion: " $pluginVersion
+if ([string]::IsNullOrEmpty($pluginVersion))
 {
     exit -1
 }
