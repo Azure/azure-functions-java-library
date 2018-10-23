@@ -44,21 +44,13 @@
   </developers>
 
   <distributionManagement>
-
     <snapshotRepository>
-
       <id>ossrh</id>
-
       <name>Sonatype Snapshots</name>
-
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-
       <uniqueVersion>true</uniqueVersion>
-
       <layout>default</layout>
-
     </snapshotRepository>
-
   </distributionManagement>
   
   <dependencies>
