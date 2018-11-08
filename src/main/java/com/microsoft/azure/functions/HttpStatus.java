@@ -63,9 +63,10 @@ public enum HttpStatus implements HttpStatusType {
      * @return HttpStatus enum
      */
     public static HttpStatus valueOf(int value) {
-        for (HttpStatus status : HttpStatus.values()) {
-            if (value == status.value)
+        for (final HttpStatus status : HttpStatus.values()) {
+            if (value == status.value) {
                 return status;
+            }
         }
 
         throw new IllegalArgumentException("HTTP Status code unknown: " + value);
