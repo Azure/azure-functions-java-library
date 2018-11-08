@@ -16,8 +16,7 @@ environment:
 
 install:
   - cmd: echo %JAVA_HOME%
-  - ps: Get-Command mvn
-  - cmd: mvn -v
+  - ps: Get-Command mvn  
   
 build_script: 
   - ps: '& .\build.ps1' 
