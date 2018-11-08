@@ -63,7 +63,7 @@ Remove-Item -Recurse -Force "src/test" -ErrorAction Ignore
 cmd.exe /c .\..\..\updateVersions.bat $libraryVersion $pluginVersion
 StopOnFailedExecution
 #Update versions in the HttpTrigger pom.xml
-cmd.exe /c '.\mvnBuild.bat'
+cmd.exe /c '.\..\..\mvnBuild.bat'
 StopOnFailedExecution
 Pop-Location -StackName "libraryDir"
 
