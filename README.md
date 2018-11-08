@@ -1,5 +1,5 @@
-# Microsoft Azure Functions API for Java
-This project contains the Java API for building functions for the Azure Functions service. Visit the [complete documentation of Azure Functions - Java Developer Guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-java) for more details.
+# Library for Azure Java Functions
+This repo contains library for building Azure Java Functions. Visit the [complete documentation of Azure Functions - Java Developer Guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-java) for more details.
 
 ## azure-functions-maven plugin
 [How to use azure-functions-maven plugin to create, update, deploy and test azure java functions](https://docs.microsoft.com/en-us/java/api/overview/azure/maven/azure-functions-maven-plugin/readme?view=azure-java-stable)
@@ -14,11 +14,11 @@ Please see for details on Parent POM https://github.com/Microsoft/maven-java-par
 
 ## Summary
 
-Azure Functions is capable of running Function Apps that may contain one or more functions grouped. A function should be a stateless method to process input and produce output. Although you are allowed to write instance methods, your function must not depend on any instance fields of the class. You need to make sure all the function methods are `public` accessible.
+Azure Functions is a solution for easily running small pieces of code, or "functions," in the cloud. You can write just the code you need for the problem at hand, without worrying about a whole application or the infrastructure to run it. Functions can make development even more productive.Pay only for the time your code runs and trust Azure to scale as needed. Azure Functions lets you develop [serverless](https://azure.microsoft.com/en-us/solutions/serverless/) applications on Microsoft Azure.
 
-A deployable unit is an uber JAR containing one or more functions (see below), and a JSON file with the list of functions and triggers definitions, deployed to Azure Functions. The JAR can be created in many ways, although we recommend the use of the [Azure Functions Maven Plugin](https://docs.microsoft.com/en-us/java/api/overview/azure/maven/azure-functions-maven-plugin/readme), which also generates the JSON file for you automatically.
+Azure Functions supports triggers, which are ways to start execution of your code, and bindings, which are ways to simplify coding for input and output data. A function should be a stateless method to process input and produce output. Although you are allowed to write instance methods, your function must not depend on any instance fields of the class. You need to make sure all the function methods are `public` accessible and method with annotation @FunctionName is unique as that defines the entry for the the function.
 
-Typically a function is invoked because of a trigger. Your function needs to process that trigger (sometimes with additional inputs) and provide an optional output.
+A deployable unit is an uber JAR containing one or more functions (see below), and a JSON file with the list of functions and triggers definitions, deployed to Azure Functions. The JAR can be created in many ways, although we recommend [Azure Functions Maven Plugin](https://docs.microsoft.com/en-us/java/api/overview/azure/maven/azure-functions-maven-plugin/readme), as it provides templates to get you started with key scenarios.
 
 All the input and output bindings can be defined in `function.json` (not recommended), or in the Java method by using annotations (recommended). All the types and annotations used in this document are included in the `azure-functions-java-library` package.
 
@@ -32,7 +32,7 @@ package com.example;
 
 import com.microsoft.azure.functions.annotation.*;
 
-public class MyClass {
+public class Function {
     @FunctionName("echo")
     public static String echo(@HttpTrigger(name = "req", methods = { "post" }, authLevel = AuthorizationLevel.ANONYMOUS) String in) {
         return "Hello, " + in + ".";
@@ -52,7 +52,7 @@ You are free to use all the data types in Java for the input and output data, in
 The POJO types (Java classes) you may define have to be publicly accessible (`public` modifier). POJO properties/fields may be `private`. For example a JSON string `{ "x": 3 }` is able to be converted to the following POJO type:
 
 ```java
-public class MyData {
+public class PojoData {
     private int x;
 }
 ```
@@ -74,38 +74,44 @@ package com.example;
 
 import com.microsoft.azure.functions.annotation.*;
 
-public class MyClass {
+public class Function {
     @FunctionName("echo")
     public String echo(
         @HttpTrigger(name = "req", methods = { "put" }, authLevel = AuthorizationLevel.ANONYMOUS, route = "items/{id}") String in,
-        @TableInput(name = "item", tableName = "items", partitionKey = "example", rowKey = "{id}", connection = "AzureWebJobsStorage") MyObject obj
+        @TableInput(name = "item", tableName = "items", partitionKey = "example", rowKey = "{id}", connection = "AzureWebJobsStorage") TestInputData inputData
     ) {
-        return "Hello, " + in + " and " + obj.getRowKey() + ".";
+        return "Hello, " + in + " and " + inputData.getRowKey() + ".";
     }
 
 }
 
-public class MyObject {
+public class TestInputData {
     public String getRowKey() { return this.rowKey; }
     private String rowKey;
 }
 
 ```
 
-When this function is invoked, the HTTP request payload will be passed as the `String` for argument `in`; and one entry will be retrieved from the Azure Table Storage and be passed to argument `obj` as `MyObject` type.
+When this function is invoked, the HTTP request payload will be passed as the `String` for argument `in`; and one entry will be retrieved from the Azure Table Storage and be passed to argument `inputData` as `TestInputData` type.
 
-To receive events in a batch when using EventHubTrigger, set cardinality to many and change input type to List<>
+To receive events in a batch when using EventHubTrigger, set cardinality to many and change input type to an array or List<>
 
-```Java
+```java
 @FunctionName("ProcessIotMessages")
     public void processIotMessages(
-        @EventHubTrigger(name = "message", eventHubName = "%AzureWebJobsEventHubPath%", connection = "AzureWebJobsEventHubSender", cardinality = Cardinality.MANY) List<String> messages,
+        @EventHubTrigger(name = "message", eventHubName = "%AzureWebJobsEventHubPath%", connection = "AzureWebJobsEventHubSender", cardinality = Cardinality.MANY) List<TestEventData> messages,
         final ExecutionContext context)
     {
         context.getLogger().info("Java Event Hub trigger received messages. Batch size: " + messages.size());
     }
+    
+    public class TestEventData {
+    public String id;
+}
 
 ```
+
+Note: You can also bind to String[], TestEventData[] or List<String>
 
 ## Outputs
 
@@ -120,7 +126,7 @@ package com.example;
 
 import com.microsoft.azure.functions.annotation.*;
 
-public class MyClass {
+public class Function {
     @FunctionName("copy")
     @StorageAccount("AzureWebJobsStorage")
     @BlobOutput(name = "$return", path = "samples-output-java/{name}")
@@ -138,7 +144,7 @@ package com.example;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.*;
 
-public class MyClass {
+public class Function {
     @FunctionName("push")
     public String push(
         @HttpTrigger(name = "req", methods = { "post" }, authLevel = AuthorizationLevel.ANONYMOUS) String body,
@@ -164,7 +170,7 @@ package com.example;
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.*;
 
-public class MyClass {
+public class Function {
     @FunctionName("heartbeat")
     public static void heartbeat(
         @TimerTrigger(name = "schedule", schedule = "*/30 * * * * *") String timerInfo,
@@ -185,7 +191,7 @@ Sometimes a function need to take a more detailed control of the input and outpu
 | Specialized Type         |       Target        | Typical Usage                  |
 | ------------------------ | :-----------------: | ------------------------------ |
 | `HttpRequestMessage<T>`  |    HTTP Trigger     | Get method, headers or queries |
-| `HttpResponseMessage<T>` | HTTP Output Binding | Return status other than 200   |
+| `HttpResponseMessage` | HTTP Output Binding | Return status other than 200   |
 
 ### Metadata
 
@@ -193,13 +199,13 @@ Metadata comes from different sources, like HTTP headers, HTTP queries, and [tri
 
 For example, the `queryValue` in the following code snippet will be `"test"` if the requested URL is `http://{example.host}/api/metadata?name=test`.
 
-```Java
+```java
 package com.example;
 
 import java.util.Optional;
 import com.microsoft.azure.functions.annotation.*;
 
-public class MyClass {
+public class Function {
     @FunctionName("metadata")
     public static String metadata(
         @HttpTrigger(name = "req", methods = { "get", "post" }, authLevel = AuthorizationLevel.ANONYMOUS) Optional<String> body,
