@@ -81,8 +81,7 @@ $Env:Path = $Env:Path+";$currDir\Azure.Functions.Cli"
 md -Name ciTestDir
 Push-Location -Path "./ciTestDir" -StackName libraryDir
 Write-Host "Generating project with archetype" 
-mvn archetype:generate -DarchetypeCatalog="local" -DarchetypeGroupId="com.microsoft.azure" -DarchetypeArtifactId="azure-functions-archetype" -DarchetypeVersion="$atchetypeVersion" -DgroupId="com.microsoft" -DartifactId="e2etestproject" -Dversion="1.0-SNAPSHOT" -Dpackage="com.microsoft" -DappRegion="westus" -DresourceGroup="e2etest-java-functions-group" -DappName="e2etest-java-functions" -B
-StopOnFailedExecution
+cmd.exe /c '.\..\mvnGenerateArchetype.bat' $atchetypeVersion
 Pop-Location -StackName "libraryDir"
 
 #Build HttpTrigger Function
