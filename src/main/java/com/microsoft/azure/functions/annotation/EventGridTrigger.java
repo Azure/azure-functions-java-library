@@ -12,7 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Place this on a parameter whose value would come from EventGrid, and causing the method to run when an event is
+ * <p>
+ * Place this on a parameter whose value would come from EventGrid, and causing the method to run when an event is
  * arrived. The parameter type can be one of the following:</p>
  *
  * <ul>

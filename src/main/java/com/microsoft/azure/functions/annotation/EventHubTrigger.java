@@ -25,7 +25,9 @@ import java.lang.annotation.Target;
  *
  * <pre>{@literal @}FunctionName("eventHubMonitor")
  * public void logEventHubMessage(
- *    {@literal @}EventHubTrigger(name = "event", eventHubName = "samples-workitems", connection = "AzureEventHubConnection") String message,
+ *    {@literal @}EventHubTrigger(name = "event", 
+ *    eventHubName = "samples-workitems", 
+ *    connection = "AzureEventHubConnection") String message,
  *     final ExecutionContext context
  * ) {
  *     context.getLogger().info("Event hub message received: " + message);
@@ -60,7 +62,9 @@ public @interface EventHubTrigger {
     String eventHubName();
 
     /**
-     * Cardinality of the trigger input. Choose 'One' if the input is a single message or 'Many' if the input is an array of messages. 'Many' is the default if unspecified
+     * Cardinality of the trigger input. 
+     * Choose 'One' if the input is a single message or 'Many' if the input is an array of messages. 
+     * 'Many' is the default if unspecified
      * @return An {@link Cardinality} value representing the Cardinality
      */
     Cardinality cardinality() default Cardinality.MANY;

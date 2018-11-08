@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Place this on a parameter whose value would be written to CosmosDB. The
- * parameter type should be OutputBinding&lt;T&gt;, where T could be one of:
+ * Place this on a parameter whose value would be written to CosmosDB. The parameter type should be
+ * OutputBinding&lt;T&gt;, where T could be one of:
  * </p>
  *
  * <ul>
@@ -23,15 +23,18 @@ import java.lang.annotation.Target;
  * </ul>
  *
  * <p>
- * The following example shows a Java function that adds a document to a
- * database, using data provided in the body of an HTTP Post request.
+ * The following example shows a Java function that adds a document to a database, using data
+ * provided in the body of an HTTP Post request.
  * </p>
  *
  * <pre>
  * {@literal @}FunctionName("addItem")
- *{@literal @}CosmosDBOutput(name = "database", databaseName = "ToDoList", collectionName = "Items", connectionStringSetting = "AzureCosmosDBConnection")
+ *
  * public String cosmosDbAddItem(
- *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) final String message
+ *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
+ *     final String message,
+ *    {@literal @}CosmosDBOutput(name = "database", databaseName = "ToDoList", collectionName = "Items", 
+ *    connectionStringSetting = "AzureCosmosDBConnection")
  * ) {
  *     return "{ \"id\": \"" + System.currentTimeMillis() + "\", \"description\": \"" + message + "\" }";
  * }
@@ -42,86 +45,83 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.PARAMETER, ElementType.METHOD })
 public @interface CosmosDBOutput {
-    /**
-     * The variable name used in function.json.
-     * 
-     * @return The variable name used in function.json.
-     */
-    String name();
+  /**
+   * The variable name used in function.json.
+   * 
+   * @return The variable name used in function.json.
+   */
+  String name();
 
-    /**
-     * <p>
-     * Defines how Functions runtime should treat the parameter value. Possible
-     * values are:
-     * </p>
-     * <ul>
-     * <li>"" or string: treat it as a string whose value is serialized from the
-     * parameter</li>
-     * <li>binary: treat it as a binary data whose value comes from for example
-     * OutputBinding&lt;byte[]&gt;</li>
-     * </ul>
-     * 
-     * @return The dataType which will be used by the Functions runtime.
-     */
-    String dataType() default "";
+  /**
+   * <p>
+   * Defines how Functions runtime should treat the parameter value. Possible values are:
+   * </p>
+   * <ul>
+   * <li>"" or string: treat it as a string whose value is serialized from the parameter</li>
+   * <li>binary: treat it as a binary data whose value comes from for example
+   * OutputBinding&lt;byte[]&gt;</li>
+   * </ul>
+   * 
+   * @return The dataType which will be used by the Functions runtime.
+   */
+  String dataType() default "";
 
-    /**
-     * Defines the database name of the CosmosDB to which to write.
-     * 
-     * @return The database name string.
-     */
-    String databaseName();
+  /**
+   * Defines the database name of the CosmosDB to which to write.
+   * 
+   * @return The database name string.
+   */
+  String databaseName();
 
-    /**
-     * Defines the collection name of the CosmosDB to which to write.
-     * 
-     * @return The collection name string.
-     */
-    String collectionName();
+  /**
+   * Defines the collection name of the CosmosDB to which to write.
+   * 
+   * @return The collection name string.
+   */
+  String collectionName();
 
-    /**
-     * Defines the ID of the CosmosDB to which to write.
-     * 
-     * @return The ID string.
-     */
-    boolean createIfNotExists() default false;
+  /**
+   * Defines the ID of the CosmosDB to which to write.
+   * 
+   * @return The ID string.
+   */
+  boolean createIfNotExists() default false;
 
-    /**
-     * Defines the app setting name that contains the CosmosDB connection string.
-     * 
-     * @return The app setting name of the connection string.
-     */
-    String connectionStringSetting();
+  /**
+   * Defines the app setting name that contains the CosmosDB connection string.
+   * 
+   * @return The app setting name of the connection string.
+   */
+  String connectionStringSetting();
 
-    /**
-     * Defines the partition key path for the created collection when
-     * createIfNotExists is set to true. May include binding parameters.
-     * 
-     * @return partitionKey of the created collection.
-     */
-    String partitionKey() default "";
+  /**
+   * Defines the partition key path for the created collection when createIfNotExists is set to
+   * true. May include binding parameters.
+   * 
+   * @return partitionKey of the created collection.
+   */
+  String partitionKey() default "";
 
-    /**
-     * If CreateIfNotExists is true, defines the throughput of the created
-     * collection.
-     * 
-     * @return Throughput of the created collection.
-     */
-    int collectionThroughput() default -1;
+  /**
+   * If CreateIfNotExists is true, defines the throughput of the created collection.
+   * 
+   * @return Throughput of the created collection.
+   */
+  int collectionThroughput() default -1;
 
-    /**
-     * Enable to use with Multi Master accounts.
-     * 
-     * @return whether to Multi Master accounts
-     */
-    boolean useMultipleWriteLocations() default false;
+  /**
+   * Enable to use with Multi Master accounts.
+   * 
+   * @return whether to Multi Master accounts
+   */
+  boolean useMultipleWriteLocations() default false;
 
-    /**
-     * Defines preferred locations (regions) for geo-replicated database accounts in
-     * the Azure Cosmos DB service. Values should be comma-separated. example,
-     * PreferredLocations = "East US,South Central US,North Europe"
-     * 
-     * @return PreferredLocations for geo-replicated database accounts
-     */
-    String preferredLocations() default "";
+  /**
+   * Defines preferred locations (regions) for geo-replicated database accounts in the Azure Cosmos
+   * DB service. Values should be comma-separated. example, PreferredLocations = "East US,South
+   * Central US,North Europe"
+   * 
+   * @return PreferredLocations for geo-replicated database accounts
+   */
+  String preferredLocations() default "";
 }

@@ -26,7 +26,8 @@ import java.lang.annotation.Target;
  *
  * <pre>{@literal @}FunctionName("queueMonitor")
  * public void logQueueItem(
- *    {@literal @}QueueTrigger(name = "msg", queueName = "myqueue-items", connection = "AzureWebJobsStorage") String message,
+ *    {@literal @}QueueTrigger(name = "msg", queueName = "myqueue-items", connection = "AzureWebJobsStorage") 
+ *     String message,
  *     final ExecutionContext context
  * ) {
  *     context.getLogger().info("Queue message processed: " + message);

@@ -48,12 +48,40 @@ $libraryPom -match "<version>(.*)</version>"
 $libraryVersion = $matches[1]
 Write-Host "libraryVersion: " $libraryVersion
 
+# Download azure-functions-core-tools
+$currDir =  Get-Location
+$skipCliDownload = $false
+if($args[0])
+{
+$skipCliDownload = $args[0]
+}
+Write-Host "skipCliDownload" $skipCliDownload
+if(!$skipCliDownload)
+{
+Write-Host "Deleting Functions Core Tools if exists...."
+Remove-Item -Force ./Azure.Functions.Cli.zip -ErrorAction Ignore
+Remove-Item -Recurse -Force ./Azure.Functions.Cli -ErrorAction Ignore
+
+Write-Host "Downloading Functions Core Tools...."
+Invoke-RestMethod -Uri 'https://functionsclibuilds.blob.core.windows.net/builds/2/latest/version.txt' -OutFile version.txt
+Write-Host "Using Functions Core Tools version: $(Get-Content -Raw version.txt)"
+Remove-Item version.txt
+
+$url = "https://functionsclibuilds.blob.core.windows.net/builds/2/latest/Azure.Functions.Cli.win-x86.zip"
+$output = "$currDir\Azure.Functions.Cli.zip"
+$wc = New-Object System.Net.WebClient
+$wc.DownloadFile($url, $output)
+
+Write-Host "Extracting Functions Core Tools...."
+Expand-Archive ".\Azure.Functions.Cli.zip" -DestinationPath ".\Azure.Functions.Cli"
+}
+$Env:Path = $Env:Path+";$currDir\Azure.Functions.Cli"
+
 # Generate HttpTrigger Function via archetype version built above
 md -Name ciTestDir
 Push-Location -Path "./ciTestDir" -StackName libraryDir
 Write-Host "Generating project with archetype" 
-mvn archetype:generate -DarchetypeCatalog="local" -DarchetypeGroupId="com.microsoft.azure" -DarchetypeArtifactId="azure-functions-archetype" -DarchetypeVersion="$atchetypeVersion" -DgroupId="com.microsoft" -DartifactId="e2etestproject" -Dversion="1.0-SNAPSHOT" -Dpackage="com.microsoft" -DappRegion="westus" -DresourceGroup="e2etest-java-functions-group" -DappName="e2etest-java-functions" -B
-StopOnFailedExecution
+cmd.exe /c '.\..\mvnGenerateArchetype.bat' $atchetypeVersion
 Pop-Location -StackName "libraryDir"
 
 #Build HttpTrigger Function
@@ -63,7 +91,7 @@ Remove-Item -Recurse -Force "src/test" -ErrorAction Ignore
 cmd.exe /c .\..\..\updateVersions.bat $libraryVersion $pluginVersion
 StopOnFailedExecution
 #Update versions in the HttpTrigger pom.xml
-mvn clean package -DskipTests
+cmd.exe /c '.\..\..\mvnBuild.bat'
 StopOnFailedExecution
 Pop-Location -StackName "libraryDir"
 
