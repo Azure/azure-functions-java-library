@@ -18,7 +18,6 @@ install:
   - cmd: echo %JAVA_HOME%
   - ps: Get-Command mvn
   - cmd: mvn -v
-  - cmd: npm i -g azure-functions-core-tools
   
 build_script: 
   - ps: '& .\build.ps1' 
