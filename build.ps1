@@ -97,7 +97,7 @@ Pop-Location -StackName "libraryDir"
 
 # Clone and build azure-functions-java-worker
 git clone https://github.com/azure/azure-functions-java-worker -b dev
-Push-Location -Path "./azure-functions-java-worker" -StackName workerDir
+Push-Location -Path "./azure-functions-java-worker" -StackName libraryDir
 Write-Host "Updating azure-functions-java-worker to use current version of library" 
 
 cmd.exe /c .\..\updateVersions.bat $libraryVersion
