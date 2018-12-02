@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.microsoft.azure.functions</groupId>
 	<artifactId>azure-functions-java-library</artifactId>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
 	<packaging>jar</packaging>
 	<parent>
 		<groupId>com.microsoft.maven</groupId>
 		<artifactId>java-8-parent</artifactId>
-		<version>8.0.0-SNAPSHOT</version>
+		<version>8.0.0</version>
 	</parent>
 
 	<name>Microsoft Azure Functions Java Core Types</name>
