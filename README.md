@@ -1,3 +1,8 @@
+|Branch|Status|
+|---|---|
+|master|[![Build status](https://ci.appveyor.com/api/projects/status/a6j46j1tawdfs3js?svg=true&branch=master)](https://ci.appveyor.com/project/appsvc/azure-functions-java-library?branch=master)|
+|dev|[![Build status](https://ci.appveyor.com/api/projects/status/a6j46j1tawdfs3js?svg=true&branch=dev)](https://ci.appveyor.com/project/appsvc/azure-functions-java-library?branch=dev)|
+
 # Library for Azure Java Functions
 This repo contains library for building Azure Java Functions. Visit the [complete documentation of Azure Functions - Java Developer Guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-java) for more details.
 
