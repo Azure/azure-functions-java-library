@@ -34,4 +34,10 @@ public interface ExecutionContext {
      * @return the function name.
      */
     String getFunctionName();
+
+    /**
+     * Returns the trace context.
+     * @return the trace context
+     */
+	TracingContext getTraceContext();
 }
