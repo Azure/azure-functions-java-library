@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @since 1.0.0
  */
-public interface TracingContext {
+public interface TraceContext {
     /**
      * Returns the TraceparentString from the Activity.
      *
