@@ -33,3 +33,6 @@ hs_err_pid*
 /target/
 /Azure.Functions.Cli/*
 /azure-functions-java-worker/
+
+#IDE
+*.iml

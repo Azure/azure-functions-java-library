@@ -19,7 +19,7 @@ $atchetypeVersion = $matches[1]
 Write-Host "atchetypeVersion: " $atchetypeVersion
 
 # Clone and install function maven plugin
-git clone https://github.com/Microsoft/azure-maven-plugins.git -b develop
+git clone https://github.com/Microsoft/azure-maven-plugins.git -b master
 Push-Location -Path "./azure-maven-plugins" -StackName libraryDir
 Write-Host "Build and install azure-functions-maven-plugins" 
 cmd.exe /c '.\..\mvnBuildSkipTests.bat'
