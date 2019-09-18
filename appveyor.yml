@@ -22,7 +22,7 @@ build_script:
   - ps: '& .\build.ps1' 
 
 artifacts:
-  - path: 'azure-functions-java-library/target/**.jar'
+  - path: '/azure-functions-java-library/target/**.jar'
 
 cache:
   - C:\maven\
