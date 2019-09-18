@@ -6,6 +6,7 @@
 
 package com.microsoft.azure.functions;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -19,17 +20,23 @@ public interface TraceContext {
      *
      * @return the TraceparentString from the Activity.
      */
-    String getTraceparent();
+    default String getTraceparent() {
+        return "";
+    }
 
     /**
      * Returns the Tracestate which is Activity.Current?.Id from host.
      * @return the Tracestate which is Activity.Current?.Id from host.
      */
-    String getTracestate();
+    default String getTracestate() {
+        return "";
+    }
 
     /**
      * Returns the attributes which correspond to the tags.
      * @return the attributes which correspond to the tags.
      */
-    Map<String, String> getAttributes();
+    default Map<String, String> getAttributes() {
+        return Collections.<String, String>emptyMap();
+    }
 }
