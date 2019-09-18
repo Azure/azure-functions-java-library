@@ -86,4 +86,10 @@ public @interface ServiceBusQueueTrigger {
    * @return The Service Bus queue permission.
    */
   AccessRights access() default AccessRights.MANAGE;
+
+  /**
+   * Defines the value indicating whether the sessions are enabled.
+   * @return The value indicating whether the sessions are enabled.
+   */
+  boolean isSessionsEnabled() default false;
 }
