@@ -39,7 +39,8 @@ public interface ExecutionContext {
      * Returns the trace context.
      * @return the trace context
      */
-	default TraceContext getTraceContext() {
-        return new TraceContext(){};
+    default TraceContext getTraceContext() {
+        return null;
     }
 }
+
