@@ -25,4 +25,4 @@ artifacts:
   - path: '/azure-functions-java-library/target/**.jar'
 
 cache:
-  - C:\maven\
+  - C:\maven1\
