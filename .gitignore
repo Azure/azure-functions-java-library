@@ -36,3 +36,6 @@ hs_err_pid*
 
 #IDE
 *.iml
+
+#OSX
+.DS_Store
