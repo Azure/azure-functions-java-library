@@ -18,7 +18,6 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-@CustomBinding(direction = "out", name = "kafkaOutput", type = "kafka")
 public @interface KafkaOutput {
     /**
      * Gets the Topic.
