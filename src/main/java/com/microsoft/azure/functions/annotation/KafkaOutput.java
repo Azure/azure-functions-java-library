@@ -33,7 +33,8 @@ public @interface KafkaOutput {
      * </ul>
      * @return The dataType which will be used by the Functions runtime.
      */
-    String dataType() default "";    
+    String dataType() default "";
+
     /**
      * Gets the Topic.
      * @return

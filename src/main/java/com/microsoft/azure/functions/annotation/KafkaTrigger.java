@@ -26,7 +26,8 @@ public @interface KafkaTrigger {
      * 
      * @return The variable name used in function code for the request or request body.
      */
-    String name();    
+    String name();
+
     /**
      * Gets the Topic.
      */
