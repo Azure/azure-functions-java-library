@@ -43,6 +43,7 @@ StopOnFailedExecution
 # Get azure-functions-library 
 Write-Host "Build and install azure-functions-java-library" 
 cmd.exe /c '.\mvnBuild.bat'
+StopOnFailedExecution
 $libraryPom = Get-Content "pom.xml" -Raw
 $libraryPom -match "<version>(.*)</version>"
 $libraryVersion = $matches[1]
