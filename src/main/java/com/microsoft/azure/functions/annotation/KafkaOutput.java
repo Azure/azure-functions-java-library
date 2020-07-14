@@ -14,13 +14,43 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * <p>Annotation for Kafka output bindings</p>
+ * <p>
+ * Place this on a parameter whose value would be written to Kafka. The parameter type should be
+ * OutputBinding&lt;T&gt;, where T could be one of:
+ * </p>
+ *
+ * <ul>
+ * <li>Some native Java types such as String</li>
+ * <li>Any POJO type</li>
+ * </ul>
+ *
+ * <p>
+ * The following example shows a Java function that produce a message to the Kafka cluster, using event
+ * provided in the body of an HTTP Post request.
+ * </p>
+ *
+ * <pre>
+ * {@literal @}FunctionName("kafkaInupt-Java")
+ *
+ * public String input(
+ *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
+ *     final String message,
+ *    {@literal @}KafkaOutput(name = "database", topic = "users", brokerList="broker:29092") OutputBinding<String> output,
+ *    final ExecutionContext context) {
+ *     context.getLogger().info("Message:" + message);
+ *     output.setValue(message);
+ *     return "{ \"id\": \"" + System.currentTimeMillis() + "\", \"description\": \"" + message + "\" }";
+ * }
+ * </pre>
+ * 
+ * @since 1.0.0
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface KafkaOutput {
     /**
      * The variable name used in function.json.
+     * 
      * @return The variable name used in function.json.
      */
     String name();
@@ -36,38 +66,51 @@ public @interface KafkaOutput {
     String dataType() default "";
 
     /**
-     * Gets the Topic.
-     * @return
+     * Defines the Topic.
+     * 
+     * @return The topic name.
      */
     String topic();
 
     /**
-     * Gets or sets the BrokerList.
+     * Defines the BrokerList.
+     * 
+     * @return The brokerList name string.
      */
     String brokerList();
 
     /**
-     * Gets or sets the Maximum transmit message size. Default: 1MB
+     * Defines the maximum transmit message size. Default: 1MB
+     * 
+     * @return The maximum trnasmit message size.
      */
     int maxMessageBytes() default 1000012; // Follow the kafka spec https://kafka.apache.org/documentation/
 
     /**
-     * Maximum number of messages batched in one MessageSet. default: 10000
+     * Defines the maximum number of messages batched in one MessageSet. default: 10000
+     * 
+     * @return The maximum number of messages batched in one MessageSet.
      */
     int batchSize() default 10000;
 
     /**
      * When set to `true`, the producer will ensure that messages are successfully produced exactly once and in the original produce order. default: false
+     * 
+     * @return whether idempotence is enabled.
      */
     boolean enableIdempotence() default false;
 
     /**
      * Local message timeout. This value is only enforced locally and limits the time a produced message waits for successful delivery. A time of 0 is infinite. This is the maximum time used to deliver a message (including retries). Delivery error occurs when either the retry count or the message timeout are exceeded. default: 300000
+     * 
+     * @return The local message timeout.
      */
     int messageTimeoutMs() default 300000;
 
     /**
      * The ack timeout of the producer request in milliseconds. default: 5000
+     * 
+     * @return The ack timeout of the producer request in milliseconds.
      */
     int requestTimeoutMs() default 5000;
 
@@ -75,18 +118,24 @@ public @interface KafkaOutput {
      * How many times to retry sending a failing Message. **Note:** default: 2
      * Retrying may cause reordering unless EnableIdempotence is set to true.
      * @see #enableIdempotence()
+     * 
+     * @return The number of the max retries.
      */
     int maxRetries() default 2;
 
     /**
      * SASL mechanism to use for authentication.
      * Default: PLAIN
+     * 
+     * @return The SASL mechanism.
      */
-    BrokerAuthenticationMode authenticationMode() default BrokerAuthenticationMode.NOTSET; // TODO double check if it is OK
+    BrokerAuthenticationMode authenticationMode() default BrokerAuthenticationMode.NOTSET;
 
     /**
      * SASL username with the PLAIN and SASL-SCRAM-.. mechanisms
      * Default: ""
+     * 
+     * @return The SASL username.
      */
     String username() default "";
 
@@ -95,12 +144,16 @@ public @interface KafkaOutput {
      * Default is plaintext
      *
      * security.protocol in librdkafka
+     * 
+     * @return The SASL password.
      */
     String password() default "";
 
     /**
      * Gets or sets the security protocol used to communicate with brokers
      * default is PLAINTEXT
+     * 
+     * @return The protocol.
      */
     BrokerProtocol protocol() default BrokerProtocol.NOTSET;
 
@@ -108,24 +161,32 @@ public @interface KafkaOutput {
      * Path to client's private key (PEM) used for authentication.
      * Default ""
      * ssl.key.location in librdkafka
+     * 
+     * @return The ssl.key.location.
      */
     String sslKeyLocation() default "";
 
-        /**
+    /**
      * Path to CA certificate file for verifying the broker's certificate.
      * ssl.ca.location in librdkafka
+     * 
+     * @return The ssl ca location.
      */
     String sslCaLocation() default "";
 
     /**
      * Path to client's certificate.
      * ssl.certificate.location in librdkafka
+     * 
+     * @return The client certificate.
      */
     String sslCertificateLocation() default "";
 
     /**
      * Password for client's certificate.
      * ssl.key.password in librdkafka
+     * 
+     * @return The password of the client certificate.
      */
     String sslKeyPassword() default "";
 }
