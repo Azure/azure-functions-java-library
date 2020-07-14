@@ -22,9 +22,9 @@ import java.lang.annotation.ElementType;
  * </p>
  *
  * <ul>
- * <li>Some native Java types such as String</li>
- * <li>Nullable values using Optional&lt;T&gt;</li>
- * <li>Any POJO type</li>
+ *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Nullable values using Optional&lt;T&gt;</li>
+ *     <li>Any POJO type</li>
  * </ul>
  *
  * <p>

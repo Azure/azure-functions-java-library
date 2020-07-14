@@ -20,8 +20,8 @@ import java.lang.annotation.Target;
  * </p>
  *
  * <ul>
- * <li>Some native Java types such as String</li>
- * <li>Any POJO type</li>
+ *     <li>Any native Java types such as int, String, byte[]</li>
+ *     <li>Any POJO type</li>
  * </ul>
  *
  * <p>
@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  * public String input(
  *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
  *     final String message,
- *    {@literal @}KafkaOutput(name = "database", topic = "users", brokerList="broker:29092") OutputBinding<String> output,
+ *    {@literal @}KafkaOutput(name = "event", topic = "users", brokerList="broker:29092") OutputBinding<String> output,
  *    final ExecutionContext context) {
  *     context.getLogger().info("Message:" + message);
  *     output.setValue(message);
