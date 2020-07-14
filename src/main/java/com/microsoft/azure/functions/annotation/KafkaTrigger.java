@@ -51,7 +51,7 @@ import java.lang.annotation.ElementType;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface KafkaTrigger {
-    
+
     /**
      * The variable name used in function code for the request or request body.
      * 
@@ -161,7 +161,7 @@ public @interface KafkaTrigger {
      * Path to client's certificate.
      * ssl.certificate.location in librdkafka
      * 
-     * @return The ssl client certification.
+     * @return The ssl certificate location.
      */
     String sslCertificateLocation() default "";
 

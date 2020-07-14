@@ -48,7 +48,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface KafkaOutput {
-    
+
     /**
      * The variable name used in function.json.
      * 
@@ -179,7 +179,7 @@ public @interface KafkaOutput {
      * Path to client's certificate.
      * ssl.certificate.location in librdkafka
      * 
-     * @return The ssl client certification.
+     * @return The ssl certificate location.
      */
     String sslCertificateLocation() default "";
 
@@ -187,7 +187,7 @@ public @interface KafkaOutput {
      * Password for client's certificate.
      * ssl.key.password in librdkafka
      * 
-     * @return The password of the client certificate.
+     * @return The ssl key password.
      */
     String sslKeyPassword() default "";
 }
