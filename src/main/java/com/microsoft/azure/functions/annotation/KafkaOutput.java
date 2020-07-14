@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Place this on a parameter whose value would be written to Kafka. The parameter type should be
+ * Place this on a parameter whose value would be published to Kafka. The parameter type should be
  * OutputBinding&lt;T&gt;, where T could be one of:
  * </p>
  *
@@ -43,7 +43,7 @@ import java.lang.annotation.Target;
  * }
  * </pre>
  * 
- * @since 1.0.0
+ * @since 1.4.0
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
