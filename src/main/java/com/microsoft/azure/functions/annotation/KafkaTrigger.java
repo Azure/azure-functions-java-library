@@ -24,7 +24,7 @@ import java.lang.annotation.ElementType;
  * <ul>
  *     <li>Any native Java types such as int, String, byte[]</li>
  *     <li>Nullable values using Optional&lt;T&gt;</li>
- *     <li>Any POJO type</li>
+ *     <li>Any POJO type for Cardinality.One</li>
  * </ul>
  *
  * <p>
