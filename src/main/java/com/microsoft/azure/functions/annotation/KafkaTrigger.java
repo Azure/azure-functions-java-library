@@ -51,6 +51,7 @@ import java.lang.annotation.ElementType;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface KafkaTrigger {
+    
     /**
      * The variable name used in function code for the request or request body.
      * 
@@ -87,13 +88,15 @@ public @interface KafkaTrigger {
      * @return The cardinality.
      */
     Cardinality cardinality() default Cardinality.ONE;
+
     /**
-     * DataType for the Cardinality settings. If you set the cardinality as Cardinality.MANY, Azure Functions Host will deserialize
-     * the kafka events as an array of this type.
-     * Allowed values: string, binary, stream
-     * Default: ""
-     * 
-     * @return The dataType.
+     * <p>Defines how Functions runtime should treat the parameter value. Possible values are:</p>
+     * <ul>
+     *     <li>"": get the value as a string, and try to deserialize to actual parameter type like POJO</li>
+     *     <li>string: always get the value as a string</li>
+     *     <li>binary: get the value as a binary data, and try to deserialize to actual parameter type byte[]</li>
+     * </ul>
+     * @return The dataType which will be used by the Functions runtime.
      */
     String dataType() default "";
 
