@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  * public String input(
  *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
  *     final String message,
- *    {@literal @}KafkaOutput(name = "event", topic = "users", brokerList="broker:29092") OutputBinding<String> output,
+ *    {@literal @}KafkaOutput(name = "event", topic = "users", brokerList="broker:29092") OutputBinding&lt;String&lt; output,
  *    final ExecutionContext context) {
  *     context.getLogger().info("Message:" + message);
  *     output.setValue(message);
