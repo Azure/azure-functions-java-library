@@ -46,7 +46,7 @@ import java.lang.annotation.ElementType;
  * }
  * </pre>
  *
- * @since 1.0.0
+ * @since 1.4.0
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
@@ -158,7 +158,7 @@ public @interface KafkaTrigger {
      * Path to client's certificate.
      * ssl.certificate.location in librdkafka
      * 
-     * @return The ssl certificate location.
+     * @return The ssl client certification.
      */
     String sslCertificateLocation() default "";
 

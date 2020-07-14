@@ -162,7 +162,7 @@ public @interface KafkaOutput {
      * Default ""
      * ssl.key.location in librdkafka
      * 
-     * @return The ssl.key.location.
+     * @return The ssl key location.
      */
     String sslKeyLocation() default "";
 
@@ -178,7 +178,7 @@ public @interface KafkaOutput {
      * Path to client's certificate.
      * ssl.certificate.location in librdkafka
      * 
-     * @return The client certificate.
+     * @return The ssl client certification.
      */
     String sslCertificateLocation() default "";
 
