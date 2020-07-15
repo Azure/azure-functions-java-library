@@ -8,11 +8,10 @@ package com.microsoft.azure.functions.annotation;
 import com.microsoft.azure.functions.BrokerAuthenticationMode;
 import com.microsoft.azure.functions.BrokerProtocol;
 
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 
 /**
@@ -102,6 +101,8 @@ public @interface KafkaTrigger {
 
     /**
      * Defines the consumer group.
+     * 
+     * @return The consumer group.
      */
     String consumerGroup();
 
