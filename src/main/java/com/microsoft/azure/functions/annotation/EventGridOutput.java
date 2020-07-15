@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
  *     outputEvent.setValue(eventGridOutputDocument);
  * }</pre>
  *
- * @since 1.3.1
+ * @since 1.4.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER, ElementType.METHOD})
