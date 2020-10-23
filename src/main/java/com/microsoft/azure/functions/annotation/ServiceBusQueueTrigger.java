@@ -92,4 +92,12 @@ public @interface ServiceBusQueueTrigger {
    * @return The value indicating whether the sessions are enabled.
    */
   boolean isSessionsEnabled() default false;
+
+  /**
+   * Cardinality of the trigger input.
+   * Choose 'One' if the input is a single message or 'Many' if the input is an array of messages.
+   * 'ONE' is the default if unspecified
+   * @return An {@link Cardinality} value representing the Cardinality
+   */
+  Cardinality cardinality() default Cardinality.ONE;
 }
