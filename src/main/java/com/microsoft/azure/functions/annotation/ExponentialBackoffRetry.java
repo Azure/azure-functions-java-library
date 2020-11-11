@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
+@Target(ElementType.METHOD)
 public @interface ExponentialBackoffRetry {
     /**
      * The maximum number of retries that will be attempted.
