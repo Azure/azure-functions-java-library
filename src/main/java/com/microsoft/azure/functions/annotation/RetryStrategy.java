@@ -19,9 +19,9 @@ public enum RetryStrategy {
      * Defines an exponential backoff retry strategy, where the delay between retries
      * will get progressively larger, limited by the max/min specified.
      */
-    EXPONENTIAL,
+    EXPONENTIAL_BACKOFF,
     /**
      * Defines a retry strategy where a fixed delay is used between retries.
      */
-    FIXED;
+    FIXED_DELAY;
 }
