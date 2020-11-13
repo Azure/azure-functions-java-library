@@ -1,1 +1,1 @@
-mvn clean install -pl build-tools,azure-maven-plugins-pom,azure-tools-common,azure-maven-plugin-lib,azure-functions-maven-plugin -Dmaven.javadoc.skip=true -Dmaven.test.skip -U -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B
+mvn clean install -pl build-tools,azure-maven-plugins-pom,azure-tools-common,azure-auth-helper,azure-maven-plugin-lib,azure-functions-maven-plugin -Dmaven.javadoc.skip=true -Dmaven.test.skip -U -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B
