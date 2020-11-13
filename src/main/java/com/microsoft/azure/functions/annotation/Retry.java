@@ -13,21 +13,36 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Defines a retry strategy where a fixed delay is used between retries.</p>
+ * Defines Retry Policy</p>
  *
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface FixedDelayRetry {
+public @interface Retry {
+    /**
+     * The strategy of retry
+     * @return The retry strategy
+     */
+    RetryStrategy strategy();
     /**
      * The maximum number of retries that will be attempted.
-     * @return The delay between retries.
+     * @return The maximum retry count.
      */
     int maxRetryCount();
+    /**
+     * The minimum delay interval.
+     * @return The minimum retry delay.
+     */
+    String minimumInterval() default "";
+    /**
+     * The maximum delay interval.
+     * @return The maximum retry delay.
+     */
+    String maximumInterval() default "";
     /**
      * The delay between retries.
      * @return The delay interval.
      */
-    String delayInterval();
+    String delayInterval() default "";
 }
