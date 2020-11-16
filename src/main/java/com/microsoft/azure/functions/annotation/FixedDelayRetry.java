@@ -21,6 +21,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface FixedDelayRetry {
     /**
+     * The strategy of retries that will be used internally.
+     * @return The strategy of retries.
+     */
+    String strategy() default "fixedDelay";
+    /**
      * The maximum number of retries that will be attempted.
      * @return The delay between retries.
      */

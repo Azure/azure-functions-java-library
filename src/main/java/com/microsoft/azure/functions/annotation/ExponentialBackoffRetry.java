@@ -22,6 +22,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface ExponentialBackoffRetry {
     /**
+     * The strategy of retries that will be used internally.
+     * @return The strategy of retries.
+     */
+    String strategy() default "exponentialBackoff";
+    /**
      * The maximum number of retries that will be attempted.
      * @return The maximum retry count.
      */
