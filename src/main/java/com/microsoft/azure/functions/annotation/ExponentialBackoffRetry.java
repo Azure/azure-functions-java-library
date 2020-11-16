@@ -13,18 +13,14 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * Defines Retry Policy</p>
+ * Defines an exponential backoff retry strategy, where the delay between retries
+ * will get progressively larger, limited by the max/min specified.</p>
  *
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Retry {
-    /**
-     * The strategy of retry
-     * @return The retry strategy
-     */
-    RetryStrategy strategy();
+public @interface ExponentialBackoffRetry {
     /**
      * The maximum number of retries that will be attempted.
      * @return The maximum retry count.
@@ -34,15 +30,10 @@ public @interface Retry {
      * The minimum delay interval.
      * @return The minimum retry delay.
      */
-    String minimumInterval() default "";
+    String minimumInterval();
     /**
      * The maximum delay interval.
      * @return The maximum retry delay.
      */
-    String maximumInterval() default "";
-    /**
-     * The delay between retries.
-     * @return The delay interval.
-     */
-    String delayInterval() default "";
+    String maximumInterval();
 }
