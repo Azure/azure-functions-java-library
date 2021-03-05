@@ -41,7 +41,7 @@ import com.microsoft.azure.functions.annotation.*;
 
 public class Function {
     @FunctionName("echo")
-    public static String echo(@HttpTrigger(name = "req", methods = { "post" }, authLevel = AuthorizationLevel.ANONYMOUS) String in) {
+    public static String echo(@HttpTrigger(name = "req", methods = { HttpMethod.POST }, authLevel = AuthorizationLevel.ANONYMOUS) String in) {
         return "Hello, " + in + ".";
     }
 }
@@ -84,7 +84,7 @@ import com.microsoft.azure.functions.annotation.*;
 public class Function {
     @FunctionName("echo")
     public String echo(
-        @HttpTrigger(name = "req", methods = { "put" }, authLevel = AuthorizationLevel.ANONYMOUS, route = "items/{id}") String in,
+        @HttpTrigger(name = "req", methods = { HttpMethod.PUT }, authLevel = AuthorizationLevel.ANONYMOUS, route = "items/{id}") String in,
         @TableInput(name = "item", tableName = "items", partitionKey = "example", rowKey = "{id}", connection = "AzureWebJobsStorage") TestInputData inputData
     ) {
         return "Hello, " + in + " and " + inputData.getRowKey() + ".";
@@ -154,7 +154,7 @@ import com.microsoft.azure.functions.annotation.*;
 public class Function {
     @FunctionName("push")
     public String push(
-        @HttpTrigger(name = "req", methods = { "post" }, authLevel = AuthorizationLevel.ANONYMOUS) String body,
+        @HttpTrigger(name = "req", methods = { HttpMethod.POST }, authLevel = AuthorizationLevel.ANONYMOUS) String body,
         @QueueOutput(name = "message", queueName = "myqueue", connection = "AzureWebJobsStorage") OutputBinding<String> queue
     ) {
         queue.setValue("This is the queue message to be pushed");
@@ -215,7 +215,7 @@ import com.microsoft.azure.functions.annotation.*;
 public class Function {
     @FunctionName("metadata")
     public static String metadata(
-        @HttpTrigger(name = "req", methods = { "get", "post" }, authLevel = AuthorizationLevel.ANONYMOUS) Optional<String> body,
+        @HttpTrigger(name = "req", methods = { HttpMethod.GET, HttpMethod.POST }, authLevel = AuthorizationLevel.ANONYMOUS) Optional<String> body,
         @BindingName("name") String queryValue
     ) {
         return body.orElse(queryValue);
