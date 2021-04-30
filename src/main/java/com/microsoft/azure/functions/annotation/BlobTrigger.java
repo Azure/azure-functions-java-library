@@ -71,4 +71,10 @@ public @interface BlobTrigger {
      * @return The app setting name of the connection string.
      */
     String connection() default "";
+
+    /**
+     * Defines the parameter to specify the type of the blob trigger to use, example EventGrid for event grid blob trigger.
+     * @return the parameter to specify the type of the blob trigger to use.
+     */
+    String source() default "";
 }
