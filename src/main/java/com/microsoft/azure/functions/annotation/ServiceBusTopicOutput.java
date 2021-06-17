@@ -57,13 +57,6 @@ public @interface ServiceBusTopicOutput {
   String topicName();
 
   /**
-   * Defines the subscription name of the Service Bus topic to which to write.
-   * 
-   * @return The Service Bus topic subscription name string.
-   */
-  String subscriptionName();
-
-  /**
    * Defines the app setting name that contains the Service Bus connection string.
    * 
    * @return The app setting name of the connection string.
