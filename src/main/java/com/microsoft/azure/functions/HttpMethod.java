@@ -15,7 +15,7 @@ import java.util.Locale;
 
 public enum HttpMethod {
 
-  GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE;
+  GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE, PATCH;
 
       /**
        * Converts passed value to upper case to extract valueOf() of this Enum.
