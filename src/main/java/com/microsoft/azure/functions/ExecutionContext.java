@@ -42,5 +42,13 @@ public interface ExecutionContext {
     default TraceContext getTraceContext() {
         return null;
     }
+
+    /**
+     * Returns the retry context.
+     * @return the retry context
+     */
+    default RetryContext getRetryContext(){
+        return null;
+    }
 }
 
