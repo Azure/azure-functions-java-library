@@ -47,7 +47,7 @@ public interface ExecutionContext {
      * Returns the retry context.
      * @return the retry context
      */
-    default RetryContext getRetryContext(){
+    default RetryContext getRetryContext() {
         return null;
     }
 }
