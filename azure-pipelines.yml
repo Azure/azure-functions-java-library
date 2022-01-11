@@ -1,0 +1,30 @@
+trigger:
+  tags:
+    include:
+      - '*'
+  branches:
+    include:
+      - dev
+pr:
+  branches:
+    include:
+      - dev
+      - master
+
+
+jobs:
+  - job: "Build_And_Test_Java_Library_Windows"
+    pool:
+      name: '1ES-Hosted-AzFunc'
+      demands:
+        - ImageOverride -equals MMS2019TLS
+
+    steps:
+    - task: NuGetToolInstaller@1
+      inputs:
+        checkLatest: true
+    - pwsh: |
+        Write-Host "Java_HOME: $JAVA_HOME"
+        Get-Command mvn
+      displayName: 'Check Maven is installed'
+    - pwsh: '& .\build.ps1' 
