@@ -109,7 +109,7 @@ public @interface KafkaTrigger {
     /**
      * SASL mechanism to use for authentication.
      * Allowed values: Gssapi, Plain, ScramSha256, ScramSha512
-     * Default: PLAIN
+     * Default: NOTSET
      * 
      * @return The broker authentication mode.
      */
@@ -135,7 +135,7 @@ public @interface KafkaTrigger {
 
     /**
      * Defines the security protocol used to communicate with brokers
-     * default is PLAINTEXT
+     * default is NOTSET
      * 
      * @return The security protocol.
      */
