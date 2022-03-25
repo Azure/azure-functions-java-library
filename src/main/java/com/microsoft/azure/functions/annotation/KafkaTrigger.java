@@ -172,5 +172,13 @@ public @interface KafkaTrigger {
      * 
      * @return The ssl key password.
      */
-    String sslKeyPassword() default "";   
+    String sslKeyPassword() default "";
+
+    /**
+     * Avro schema for generic record deserialization
+     * default ""
+     *
+     * @return the avro schema
+     */
+    String avroSchema() default "";
 }
