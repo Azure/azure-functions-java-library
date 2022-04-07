@@ -98,6 +98,7 @@ Write-Host "Replacing Java worker binaries in the Core Tools..."
 Get-ChildItem -Path "./azure-functions-java-worker/target/*" -Include 'azure*' -Exclude '*shaded.jar','*tests.jar' | ForEach-Object {
   Copy-Item $_.FullName "./Azure.Functions.Cli/workers/java/azure-functions-java-worker.jar" -Force -Verbose
 }
+Copy-Item -Path "./azure-functions-java-worker/annotationLib" -Destination "./Azure.Functions.Cli/workers/java/annotationLib" -Recurse -Verbose
 Copy-Item -Path ".\Azure.Functions.Cli" -Destination ".\azure-functions-java-worker\Azure.Functions.Cli" -Recurse
 
 # Updating end to end tests with the new library
