@@ -31,6 +31,13 @@ import java.lang.annotation.Target;
 @CustomBinding(direction = "in", name = "warmupContext", type = "warmupTrigger")
 public @interface WarmupTrigger {
     /**
+     * The variable name used in function code for the request or request body.
+     *
+     * @return The variable name used in function code for the request or request body.
+     */
+    String name() default "warmupContext";
+
+    /**
      * <p>Defines how Functions runtime should treat the parameter value. Possible values are:</p>
      * <ul>
      *     <li>"": get the value as a string, and try to deserialize to actual parameter type like POJO</li>
