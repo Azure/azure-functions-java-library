@@ -37,7 +37,6 @@ import java.lang.annotation.Target;
  *     context.getLogger().info("Name: " + filename + ", Size: " + content.length + " bytes");
  * }</pre>
  *
- * @see com.microsoft.azure.functions.annotation.BindingName
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
