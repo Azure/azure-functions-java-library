@@ -36,7 +36,6 @@ import java.lang.annotation.Target;
  *     return items.length;
  * }</pre>
  *
- * @see com.microsoft.azure.functions.annotation.HttpTrigger
  * @since 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
