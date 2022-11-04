@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * The following example shows a Java function that retrieves a single document.
  * The function is triggered by an HTTP request that uses a query string to
  * specify the ID to look up. That ID is used to retrieve a ToDoItem document
- * from the specified database and collection. A sample URL would be like:
+ * from the specified database and container. A sample URL would be like:
  * http://localhost:7071/api/getItem?id=myid.
  * </p>
  * 
@@ -40,9 +40,9 @@ import java.lang.annotation.Target;
  *                  authLevel = AuthorizationLevel.ANONYMOUS) Optional&lt;String&gt; dummy,
  *    {@literal @}CosmosDBInput(name = "database",
  *                      databaseName = "ToDoList",
- *                      collectionName = "Items",
+ *                      containerName = "Items",
  *                      id = "{Query.id}",
- *                      connectionStringSetting = "AzureCosmosDBConnection") Optional&lt;String&gt; item
+ *                      connection = "AzureCosmosDBConnection") Optional&lt;String&gt; item
  * ) {
  *     return item.orElse("Not found");
  * }
@@ -85,11 +85,11 @@ public @interface CosmosDBInput {
     String databaseName();
 
     /**
-     * Defines the collection name of the CosmosDB to which to bind.
+     * Defines the container name of the CosmosDB to which to bind.
      * 
-     * @return The collection name string.
+     * @return The container name string.
      */
-    String collectionName();
+    String containerName();
 
     /**
      * Defines the ID of the CosmosDB to which to bind.
@@ -110,7 +110,7 @@ public @interface CosmosDBInput {
      * 
      * @return The app setting name of the connection string.
      */
-    String connectionStringSetting();
+    String connection();
 
     /**
      * Defines partition key value for the lookup. May include binding parameters.

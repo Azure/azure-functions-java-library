@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  *
  * <p>
  * The following example shows a Java function that is invoked when there are inserts or updates in
- * the specified database and collection.
+ * the specified database and container.
  * </p>
  *
  * <pre>
@@ -33,10 +33,10 @@ import java.lang.annotation.Target;
  * public void cosmosDbLog(
  *    {@literal @}CosmosDBTrigger(name = "database",
  *                      databaseName = "ToDoList",
- *                      collectionName = "Items",
- *                      leaseCollectionName = "leases",
- *                      createLeaseCollectionIfNotExists = true,
- *                      connectionStringSetting = "AzureCosmosDBConnection") 
+ *                      containerName = "Items",
+ *                      leaseContainerName = "leases",
+ *                      createLeaseContainerIfNotExists = true,
+ *                      connection = "AzureCosmosDBConnection")
  *                      List&lt;Map&lt;String, String&gt;&gt; items,
  *     final ExecutionContext context
  * ) {
@@ -83,54 +83,54 @@ public @interface CosmosDBTrigger {
   String databaseName();
 
   /**
-   * Defines the collection name of the CosmosDB to which to bind.
+   * Defines the container name of the CosmosDB to which to bind.
    * 
-   * @return The collection name string.
+   * @return The container name string.
    */
-  String collectionName();
+  String containerName();
 
   /**
-   * Defines Connection string for the service containing the lease collection.
+   * Defines Connection string for the service containing the lease container.
    * 
-   * @return Connection string for the lease collection.
+   * @return Connection string for the lease container.
    */
   String leaseConnectionStringSetting() default "";
 
   /**
-   * Defines the lease collection name of the CosmosDB to which to bind.
+   * Defines the lease container name of the CosmosDB to which to bind.
    * 
-   * @return The lease collection name string.
+   * @return The lease container name string.
    */
-  String leaseCollectionName() default "";
+  String leaseContainerName() default "";
 
   /**
-   * Defines Name of the database containing the lease collection.
+   * Defines Name of the database containing the lease container.
    * 
-   * @return Name of the database for lease collection.
+   * @return Name of the database for lease container.
    */
   String leaseDatabaseName() default "";
 
   /**
-   * Defines whether to create a new lease collection if not exists.
+   * Defines whether to create a new lease container if not exists.
    * 
-   * @return configuration whether to create a new lease collection if not exists.
+   * @return configuration whether to create a new lease container if not exists.
    */
-  boolean createLeaseCollectionIfNotExists() default false;
+  boolean createLeaseContainerIfNotExists() default false;
 
   /**
-   * defines the throughput of the created collection..
+   * defines the throughput of the created container.
    * 
    * @return throughput
    */
-  int leasesCollectionThroughput() default -1;
+  int leasesContainerThroughput() default -1;
 
   /**
-   * Defines a prefix to be used within a Leases collection for this Trigger. Useful when sharing
-   * the same Lease collection among multiple Triggers.
+   * Defines a prefix to be used within a Leases container for this Trigger. Useful when sharing
+   * the same Lease container among multiple Triggers.
    * 
-   * @return LeaseCollectionPrefix
+   * @return LeaseContainerPrefix
    */
-  String leaseCollectionPrefix() default "";
+  String leaseContainerPrefix() default "";
 
   /**
    * Customizes the amount of milliseconds between lease checkpoints. Default is always after a
@@ -161,7 +161,7 @@ public @interface CosmosDBTrigger {
    * 
    * @return The app setting name of the connection string.
    */
-  String connectionStringSetting();
+  String connection();
 
   /**
    * Customizes the renew interval in milliseconds for all leases for partitions currently held by
