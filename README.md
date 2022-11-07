@@ -8,6 +8,8 @@
 # Library for Azure Java Functions
 This repo contains library for building Azure Java Functions. Visit the [complete documentation of Azure Functions - Java Developer Guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-java) for more details.
 
+### The v2.x branch will be used to to make any changes necessary to support v3 extension bundle.
+
 ## azure-functions-maven plugin
 [How to use azure-functions-maven plugin to create, update, deploy and test azure java functions](/learn/modules/develop-azure-functions-app-with-maven-plugin)
 
