@@ -33,8 +33,8 @@ import java.lang.annotation.Target;
  * public String cosmosDbAddItem(
  *    {@literal @}HttpTrigger(name = "request", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
  *     final String message,
- *    {@literal @}CosmosDBOutput(name = "database", databaseName = "ToDoList", collectionName = "Items", 
- *    connectionStringSetting = "AzureCosmosDBConnection")
+ *    {@literal @}CosmosDBOutput(name = "database", databaseName = "ToDoList", containerName = "Items",
+ *    connection = "AzureCosmosDBConnection")
  * ) {
  *     return "{ \"id\": \"" + System.currentTimeMillis() + "\", \"description\": \"" + message + "\" }";
  * }
@@ -74,11 +74,11 @@ public @interface CosmosDBOutput {
   String databaseName();
 
   /**
-   * Defines the collection name of the CosmosDB to which to write.
+   * Defines the container name of the CosmosDB to which to write.
    * 
-   * @return The collection name string.
+   * @return The container name string.
    */
-  String collectionName();
+  String containerName();
 
   /**
    * Defines the ID of the CosmosDB to which to write.
@@ -92,22 +92,22 @@ public @interface CosmosDBOutput {
    * 
    * @return The app setting name of the connection string.
    */
-  String connectionStringSetting();
+  String connection();
 
   /**
-   * Defines the partition key path for the created collection when createIfNotExists is set to
+   * Defines the partition key path for the created container when createIfNotExists is set to
    * true. May include binding parameters.
    * 
-   * @return partitionKey of the created collection.
+   * @return partitionKey of the created container.
    */
   String partitionKey() default "";
 
   /**
-   * If CreateIfNotExists is true, defines the throughput of the created collection.
+   * If CreateIfNotExists is true, defines the throughput of the created container.
    * 
-   * @return Throughput of the created collection.
+   * @return Throughput of the created container.
    */
-  int collectionThroughput() default -1;
+  int containerThroughput() default -1;
 
   /**
    * Enable to use with Multi Master accounts.

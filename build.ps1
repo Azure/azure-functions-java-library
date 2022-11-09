@@ -83,7 +83,7 @@ Expand-Archive ".\Azure.Functions.Cli.zip" -DestinationPath ".\Azure.Functions.C
 $Env:Path = $Env:Path+";$currDir\Azure.Functions.Cli"
 
 # Clone and build azure-functions-java-worker
-git clone https://github.com/azure/azure-functions-java-worker -b dev
+git clone https://github.com/azure/azure-functions-java-worker -b shreyasg/v4-extension-bundle
 Push-Location -Path "./azure-functions-java-worker" -StackName libraryDir
 Write-Host "Updating azure-functions-java-worker to use current version of the java library"
 
