@@ -5,11 +5,12 @@ trigger:
   branches:
     include:
       - dev
+      - v2.x
 pr:
   branches:
     include:
       - dev
-      - master
+      - v2.x
 
 
 jobs:

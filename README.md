@@ -1,12 +1,15 @@
 ![Azure Functions Logo](https://raw.githubusercontent.com/Azure/azure-functions-cli/master/src/Azure.Functions.Cli/npm/assets/azure-functions-logo-color-raster.png)
 
-|Branch|Status|
-|---|---|
-|master|[![Build status](https://ci.appveyor.com/api/projects/status/ebphtfegnposba6w?svg=true)](https://ci.appveyor.com/project/appsvc/azure-functions-java-library?branch=master)|
-|dev|[![Build status](https://ci.appveyor.com/api/projects/status/ebphtfegnposba6w?svg=true)](https://ci.appveyor.com/project/appsvc/azure-functions-java-library?branch=dev)|
+| Branch | Status                                                                                                                                                                                                                                |
+|--------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dev    | [![Build Status](https://azfunc.visualstudio.com/Azure%20Functions/_apis/build/status/Azure.azure-functions-java-library?branchName=dev)](https://azfunc.visualstudio.com/Azure%20Functions/_build/latest?definitionId=101&branchName=dev)   |
+| v2.x   | [![Build Status](https://azfunc.visualstudio.com/Azure%20Functions/_apis/build/status/Azure.azure-functions-java-library?branchName=v2.x)](https://azfunc.visualstudio.com/Azure%20Functions/_build/latest?definitionId=101&branchName=v2.x) |
 
 # Library for Azure Java Functions
 This repo contains library for building Azure Java Functions. Visit the [complete documentation of Azure Functions - Java Developer Guide](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-java) for more details.
+
+### The dev branch will be used to make any changes necessary to support v4 extension bundle.
+### The v2.x branch will be used to make any changes necessary to support v3 extension bundle.
 
 ## azure-functions-maven plugin
 [How to use azure-functions-maven plugin to create, update, deploy and test azure java functions](/learn/modules/develop-azure-functions-app-with-maven-plugin)
