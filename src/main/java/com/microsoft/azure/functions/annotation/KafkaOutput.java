@@ -190,4 +190,12 @@ public @interface KafkaOutput {
      * @return The ssl key password.
      */
     String sslKeyPassword() default "";
+
+    /**
+     * lingerMS property provides the time between batches of messages
+     * being sent to cluster. Larger value allows more batching results in high throughput.
+     *
+     * @return Linger.ms for librdkafka
+     */
+    int lingerMs() default 5;
 }
