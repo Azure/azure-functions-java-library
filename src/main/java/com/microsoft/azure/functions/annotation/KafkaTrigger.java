@@ -181,4 +181,35 @@ public @interface KafkaTrigger {
      * @return the avro schema
      */
     String avroSchema() default "";
+
+    /***
+     * 
+     * @return
+    */
+    int lagThreshold() default 1000;
+
+    /**
+     * URL for the Avro Schema Registry
+     * default ""
+     *
+     * @return the avro schema registry url
+     */
+    String schemaRegistryUrl() default "";
+
+    /**
+     * Username for the Avro Schema Registry
+     * default ""
+     *
+     * @return the avro schema registry username
+     */
+    String schemaRegistryUsername() default "";
+
+    /**
+     * Password for the Avro Schema Registry
+     * default ""
+     *
+     * @return the avro schema registry password
+     */
+    String schemaRegistryPassword() default "";
+
 }
