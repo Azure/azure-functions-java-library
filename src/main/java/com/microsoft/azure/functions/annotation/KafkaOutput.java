@@ -201,6 +201,14 @@ public @interface KafkaOutput {
     int lingerMs() default 5;
 
     /**
+     * Avro schema for generic record deserialization
+     * default ""
+     *
+     * @return the avro schema
+     */
+    String avroSchema() default "";
+
+    /**
      * URL for the Avro Schema Registry
      * default ""
      *
