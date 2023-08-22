@@ -192,13 +192,13 @@ public @interface KafkaOutput {
     String sslKeyPassword() default "";
 
     /**
-     * Linger.MS property provides the time between batches of messages
+     * linger.MS property provides the time between batches of messages
      * being sent to cluster. Larger value allows more batching that 
      * results in high throughput.
      * 
      * @return value of linger.ms property.
      */
-    int LingerMs() default 5;
+    int lingerMs() default 5;
 
     /**
      * URL for the Avro Schema Registry
