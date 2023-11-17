@@ -72,7 +72,8 @@ Invoke-RestMethod -Uri "https://functionsclibuilds.blob.core.windows.net/builds/
 Write-Host "Using Functions Core Tools version: $(Get-Content -Raw version.txt)"
 Remove-Item version.txt
 
-$url = "https://functionsclibuilds.blob.core.windows.net/builds/$FUNC_RUNTIME_VERSION/latest/Azure.Functions.Cli.$os-$arch.zip"
+#$url = "https://functionsclibuilds.blob.core.windows.net/builds/$FUNC_RUNTIME_VERSION/latest/Azure.Functions.Cli.$os-$arch.zip"
+$url = "https://github.com/Azure/azure-functions-core-tools/releases/download/4.0.4915/Azure.Functions.Cli.win-x64.4.0.4915.zip"
 $output = "$currDir\Azure.Functions.Cli.zip"
 $wc = New-Object System.Net.WebClient
 $wc.DownloadFile($url, $output)
