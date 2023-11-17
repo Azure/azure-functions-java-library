@@ -15,6 +15,8 @@ pr:
 
 jobs:
   - job: "Build_And_Test_Java_Library_Windows"
+    variables:
+      ApplicationInsightAgentVersion: 3.4.16
     pool:
       name: '1ES-Hosted-AzFunc'
       demands:
@@ -74,4 +76,7 @@ jobs:
         ConfluentCloudPassword: $(ConfluentCloudPassword)
         AzureWebJobsEventGridOutputBindingTopicUriString: $(AzureWebJobsEventGridOutputBindingTopicUriString)
         AzureWebJobsEventGridOutputBindingTopicKeyString: $(AzureWebJobsEventGridOutputBindingTopicKeyString)
+        ApplicationInsightAPIKey: $(ApplicationInsightAPIKey)
+        ApplicationInsightAPPID: $(ApplicationInsightAPPID)
+        ApplicationInsightAgentVersion: $(ApplicationInsightAgentVersion)
       displayName: 'Build & Run tests for java 8'
