@@ -6,6 +6,7 @@ trigger:
     include:
       - dev
       - v2.x
+      - shreyasg/pipeline-fix
 pr:
   branches:
     include:
