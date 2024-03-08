@@ -43,11 +43,10 @@ jobs:
     
     - task: CodeQL3000Init@0
       inputs:
-        ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/*') }}:
-          Enabled: true
-        ${{ else }}:
-          Enabled: false
-
+        Enabled: true
+        Language: java
+        ExcludePathPatterns: $(Build.SourcesDirectory)\test
+        
     - pwsh: '& .\build.ps1'
       displayName: 'Build project with java library'
 
