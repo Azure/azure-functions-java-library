@@ -18,6 +18,7 @@ jobs:
       ApplicationInsightAgentVersion: 3.4.16
       Codeql.Enabled: true
       Codeql.Language: java
+      Codeql.ExcludePathPatterns: $(Build.SourcesDirectory)/test
 
     pool:
       name: '1ES-Hosted-AzFunc'
@@ -39,6 +40,13 @@ jobs:
       displayName: 'Install .NET 6'
       inputs:
         version: 6.0.x
+    
+    - task: CodeQL3000Init@0
+      inputs:
+        ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/*') }}:
+          Enabled: true
+        ${{ else }}:
+          Enabled: false
 
     - pwsh: '& .\build.ps1'
       displayName: 'Build project with java library'
@@ -52,6 +60,9 @@ jobs:
         mvn clean package `-Dmaven`.javadoc`.skip=true `-Dmaven`.test`.skip `-Dorg`.slf4j`.simpleLogger`.log`.org`.apache`.maven`.cli`.transfer`.Slf4jMavenTransferListener=warn `-B
         Copy-Item "confluent_cloud_cacert.pem" ".\target\azure-functions\azure-functions-java-endtoendtests"
       displayName: 'Package Java for E2E'
+
+    - task: CodeQL3000Finalize@0
+      condition: always()
 
     - task: DotNetCoreCLI@2
       inputs:
