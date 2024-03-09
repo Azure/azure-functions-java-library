@@ -16,6 +16,7 @@ jobs:
   - job: "Build_And_Test_Java_Library_Windows"
     variables:
       ApplicationInsightAgentVersion: 3.4.16
+      Codeql.Enabled: true
       
     pool:
       name: '1ES-Hosted-AzFunc'
@@ -40,7 +41,7 @@ jobs:
     
     - task: CodeQL3000Init@0
       inputs:
-        ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/dev') }}:
+        ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/arroyc') }}:
           Enabled: true
           Language: java
           ExcludePathPatterns: $(Build.SourcesDirectory)\test
