@@ -1,3 +1,9 @@
+parameters:
+  - name: runEndToEndTests
+    type: boolean
+    default: true
+    displayName: "Run end-to-end tests"
+
 jobs:
   - job: "Build_And_Test_Java_Library_Windows"
 
@@ -16,7 +22,7 @@ jobs:
       displayName: 'Install NuGet Tool'
 
     - pwsh: |
-        Write-Host "Java_HOME: $JAVA_HOME"
+        Write-Host "Java_HOME: $env:JAVA_HOME"
         Get-Command mvn
       displayName: 'Check Maven is installed'
 
@@ -33,37 +39,28 @@ jobs:
         $Env:Path = $Env:Path+";$currDir\Azure.Functions.Cli"
         ls $currDir\Azure.Functions.Cli
         func --version
-        cd ./azure-functions-java-worker/endtoendtests
+        cd ./azure-functions-java-worker/emulatedtests
         mvn clean package `-Dmaven`.javadoc`.skip=true `-Dmaven`.test`.skip `-Dorg`.slf4j`.simpleLogger`.log`.org`.apache`.maven`.cli`.transfer`.Slf4jMavenTransferListener=warn `-B
-        Copy-Item "confluent_cloud_cacert.pem" ".\target\azure-functions\azure-functions-java-endtoendtests"
+        Copy-Item "confluent_cloud_cacert.pem" ".\target\azure-functions\azure-functions-java-emulatedtests"
       displayName: 'Package Java for E2E'
+      condition: eq(${{ parameters.runEndToEndTests }}, true)
+
+    - bash: |
+        npm install -g azurite
+        mkdir azurite
+        azurite --silent --location azurite --debug azurite\debug.log &
+      displayName: 'Install and Run Azurite'
+      condition: eq(${{ parameters.runEndToEndTests }}, true)
 
     - task: DotNetCoreCLI@2
       retryCountOnTaskFailure: 3
       inputs:
         command: 'test'
         projects: |
-          azure-functions-java-worker\endtoendtests\Azure.Functions.Java.Tests.E2E\Azure.Functions.Java.Tests.E2E\Azure.Functions.Java.Tests.E2E.csproj
+          azure-functions-java-worker/emulatedtests/Azure.Functions.Java.Tests.E2E/Azure.Functions.Java.Tests.E2E/Azure.Functions.Java.Tests.E2E.csproj
       env:
-        AzureWebJobsStorage: $(AzureWebJobsStorage)
-        AzureWebJobsCosmosDBConnectionString: $(AzureWebJobsCosmosDBConnectionString)
-        AzureWebJobsSqlConnectionString: $(AzureWebJobsSqlConnectionString)
-        AzureWebJobsServiceBus: $(AzureWebJobsServiceBus)
-        AzureWebJobsEventHubReceiver: $(AzureWebJobsEventHubReceiver)
-        AzureWebJobsEventHubSender_2: $(AzureWebJobsEventHubSender_2)
-        AzureWebJobsEventHubSender: $(AzureWebJobsEventHubSender)
-        AzureWebJobsEventHubPath: $(AzureWebJobsEventHubPath)
-        SBTopicName: $(SBTopicName)
-        SBTopicSubName: $(SBTopicSubName)
-        CosmosDBDatabaseName: $(CosmosDBDatabaseName)
-        SBQueueName: $(SBQueueName)
-        BrokerList": $(BrokerList)
-        ConfluentCloudUsername: $(ConfluentCloudUsername)
-        ConfluentCloudPassword: $(ConfluentCloudPassword)
-        AzureWebJobsEventGridOutputBindingTopicUriString: $(AzureWebJobsEventGridOutputBindingTopicUriString)
-        AzureWebJobsEventGridOutputBindingTopicKeyString: $(AzureWebJobsEventGridOutputBindingTopicKeyString)
-        ApplicationInsightAPIKey: $(ApplicationInsightAPIKey)
-        ApplicationInsightAPPID: $(ApplicationInsightAPPID)
-        ApplicationInsightAgentVersion: $(ApplicationInsightAgentVersion)
+        AzureWebJobsStorage: "UseDevelopmentStorage=true"
+        JAVA_HOME: $(JAVA_HOME_8_X64)
       displayName: 'Build & Run tests for java 8'
+      condition: eq(${{ parameters.runEndToEndTests }}, true)
     
