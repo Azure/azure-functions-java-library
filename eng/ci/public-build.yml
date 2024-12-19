@@ -24,16 +24,6 @@ resources:
       name: 1ESPipelineTemplates/1ESPipelineTemplates
       ref: refs/tags/release
 
-variables:
-  - name: codeql.language
-    value: java,powershell
-  - name: codeql.buildIdentifier
-    value: java_library_public
-  - name: codeql.excludePathPatterns
-    value: '/extract,/azure-maven-archetypes,/azure-maven-plugins,/azure-functions-java-worker'
-  - name: codeql.compiled.enabled
-    value: true
-
 extends:
   template: v1/1ES.Unofficial.PipelineTemplate.yml@1es
   parameters:
@@ -42,6 +32,14 @@ extends:
       image: 1es-windows-2022
       os: windows
 
+    sdl:
+      codeql:
+        compiled:
+          enabled: true # still only runs for default branch
+        language: java,powershell
+        buildIdentifier: java_library_public
+        excludePathPatterns: '/extract,/azure-maven-archetypes,/azure-maven-plugins,/azure-functions-java-worker'
+        
     settings:
       # PR's from forks do not have sufficient permissions to set tags.
       skipBuildTagsForGitHubPullRequests: ${{ variables['System.PullRequest.IsFork'] }}
