@@ -6,6 +6,5 @@
 #   https://blog.github.com/2017-07-06-introducing-code-owners/
 #   https://help.github.com/articles/about-codeowners/  
 
-# Default owner for repo
-*	@pragnagopa
-*   @amamounelsayed
+# Default owners for repo
+* @azure/azure-functions-java-worker-admins

@@ -1,0 +1,7 @@
+path_classifiers:
+  generated:
+    # Classify generated code.
+    - extract
+    - azure-maven-archetypes
+    - azure-maven-plugins
+    - azure-functions-java-worker

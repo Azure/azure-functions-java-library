@@ -12,6 +12,12 @@ trigger:
     include:
     - dev
 
+parameters:
+  - name: runEndToEndTests
+    type: boolean
+    default: true
+    displayName: "Run end-to-end tests"
+
 # CI only, does not trigger on PRs.
 pr: none
 
@@ -29,6 +35,12 @@ resources:
 variables:
   - template: ci/variables/build.yml@eng
   - template: ci/variables/cfs.yml@eng
+  - name: codeql.language
+    value: java,powershell
+  - name: codeql.buildIdentifier
+    value: java_library_official
+  - name: codeql.excludePathPatterns
+    value: '/extract,/azure-maven-archetypes,/azure-maven-plugins,/azure-functions-java-worker'
 
 extends:
   template: v1/1ES.Official.PipelineTemplate.yml@1es
@@ -43,3 +55,5 @@ extends:
 
       jobs:
       - template: /eng/ci/templates/official/jobs/build-and-test.yml@self
+        parameters:
+          runEndToEndTests: ${{ and(ne(variables['Build.Reason'], 'Schedule'), parameters.runEndToEndTests) }}
