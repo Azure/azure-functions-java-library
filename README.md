@@ -18,9 +18,6 @@ This repo contains library for building Azure Java Functions. Visit the [complet
 
 * Java 8
 
-## Parent POM
-
-Please see for details on Parent POM https://github.com/Microsoft/maven-java-parent
 
 ## Summary
 
