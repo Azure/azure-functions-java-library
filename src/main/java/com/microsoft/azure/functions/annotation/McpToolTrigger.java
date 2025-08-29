@@ -10,14 +10,18 @@ import java.lang.annotation.*;
  * custom "mcpToolTrigger" extension with the specified configuration.
  * </p>
  */
-@CustomBinding(
-        direction = "in",
-        name = "context",
-        type = "mcpToolTrigger"
-)
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface McpToolTrigger {
+
+    /**
+     * The variable name used in function code for the MCP tool context.
+     * This name will be used as the binding name in the function.json file.
+     * If not specified, defaults to "mcpContext".
+     *
+     * @return The variable name used in function code for the MCP tool context.
+     */
+    String name() default "mcpContext";
 
     /**
      * The name of the tool being invoked.
