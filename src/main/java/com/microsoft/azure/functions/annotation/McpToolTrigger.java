@@ -17,20 +17,21 @@ public @interface McpToolTrigger {
     /**
      * The variable name used in function code for the MCP tool context.
      * This name will be used as the binding name in the function.json file.
-     * If not specified, defaults to "mcpContext".
+     * If the toolName property is not specified, this name will be used as the default.
      *
      * @return The variable name used in function code for the MCP tool context.
      */
-    String name() default "mcpContext";
-
+    String name();
     /**
      * The name of the tool being invoked.
      * This should match the tool identifier that the extension will use
      * to route and execute the correct functionality.
+     * If toolName is not specified, the value of the 'name' property
+     * will be used as the default.
      *
      * @return the name of the tool
      */
-    String toolName();
+    // String toolName() default "";
 
     /**
      * A description of the tool or its intended function.
@@ -39,7 +40,7 @@ public @interface McpToolTrigger {
      *
      * @return the tool's description
      */
-    String description() default "";
+    String description();
 
     /**
      * A JSON array string defining the properties required by the tool.

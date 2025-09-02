@@ -31,12 +31,23 @@ import java.lang.annotation.*;
 public @interface McpToolProperty {
 
     /**
+     * The variable name used in function code for this tool property.
+     * This name will be used as the binding name in the function.json file.
+     * If propertyName is not specified, this name will be used as the default.
+     *
+     * @return The variable name used in function code for this tool property.
+     */
+    String name();
+
+    /**
      * The name of the tool property.
      * This should match the property name that will be passed in the tool arguments.
+     * If propertyName is not specified, the value of the 'name' property will be used 
+     * as the default.
      *
      * @return the name of the property
      */
-    String propertyName();
+    // String propertyName() default "";
 
     /**
      * The expected type of the property (e.g., "string", "int", "boolean", "array").
