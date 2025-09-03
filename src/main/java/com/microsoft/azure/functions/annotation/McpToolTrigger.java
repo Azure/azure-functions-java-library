@@ -3,58 +3,61 @@ package com.microsoft.azure.functions.annotation;
 import java.lang.annotation.*;
 
 /**
- * Annotation to bind a parameter to an input from the MCP Tool Trigger.
+ * Triggers an Azure Function when invoked by the Model Context Protocol (MCP) tool system.
  * <p>
- * This trigger is used to fetch code snippets or perform actions based on the MCP tool's behavior.
- * When applied to a parameter, it enables the Azure Function to be triggered by the
- * custom "mcpToolTrigger" extension with the specified configuration.
+ * This annotation enables Azure Functions to be called as tools from MCP-compatible clients
+ * like AI assistants. The annotated parameter receives tool invocation arguments and context.
  * </p>
+ * 
+ * <p>Example:</p>
+ * <pre>
+ * {@literal @}FunctionName("getFileContent")
+ * public HttpResponseMessage getFile(
+ *     {@literal @}McpToolTrigger(
+ *         name = "request",
+ *         description = "Reads file content",
+ *         toolProperties = "[{\"propertyName\":\"filePath\",\"propertyType\":\"string\"," +
+ *                         "\"description\":\"File path to read\"}]"
+ *     ) String toolRequest
+ * ) {
+ *     // Parse and handle tool request
+ * }
+ * </pre>
+ * 
+ * @see McpToolProperty
+ * @since 3.2.0
  */
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface McpToolTrigger {
 
     /**
-     * The variable name used in function code for the MCP tool context.
-     * This name will be used as the binding name in the function.json file.
-     * If the toolName property is not specified, this name will be used as the default.
-     *
-     * @return The variable name used in function code for the MCP tool context.
+     * The binding name for the tool invocation context parameter.
+     * 
+     * @return The parameter binding name
      */
     String name();
-    /**
-     * The name of the tool being invoked.
-     * This should match the tool identifier that the extension will use
-     * to route and execute the correct functionality.
-     * If toolName is not specified, the value of the 'name' property
-     * will be used as the default.
-     *
-     * @return the name of the tool
-     */
-    // String toolName() default "";
 
     /**
-     * A description of the tool or its intended function.
-     * This may be used in UI or documentation to help users understand
-     * what the trigger does.
-     *
-     * @return the tool's description
+     * Human-readable description of what this tool does.
+     * 
+     * @return Description of the tool's functionality
      */
     String description();
 
     /**
-     * A JSON array string defining the properties required by the tool.
-     * Each item should be an object with the following keys:
-     * - propertyName: the name of the input
-     * - propertyType: the expected type (e.g., string, int)
-     * - description: an explanation of what the property represents
-     *
-     * Example:
+     * JSON array defining expected tool properties.
+     * <p>
+     * Each property should be a JSON object with: propertyName, propertyType, description.
+     * Alternative: use {@link McpToolProperty} annotations on parameters.
+     * </p>
+     * 
+     * <p>Example:</p>
      * <pre>
-     * [{"propertyName":"snippetname","propertyType":"string","description":"The name of the snippet."}]
+     * [{"propertyName":"fileName","propertyType":"string","description":"File to read"}]
      * </pre>
-     *
-     * @return a JSON string describing tool properties
+     * 
+     * @return JSON array of property definitions, or empty string
      */
     String toolProperties() default "";
 }

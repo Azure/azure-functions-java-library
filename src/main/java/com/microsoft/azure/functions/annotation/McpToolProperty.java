@@ -3,73 +3,68 @@ package com.microsoft.azure.functions.annotation;
 import java.lang.annotation.*;
 
 /**
- * Annotation to define a property for an MCP Tool.
+ * Defines a strongly-typed input property for an MCP tool function parameter.
  * <p>
- * This annotation is used to specify individual properties that an MCP tool expects,
- * including their type, description, and whether they are required.
- * It can be used as an alternative to the JSON string format in {@link McpToolTrigger#toolProperties()}.
+ * Alternative to using JSON format in {@link McpToolTrigger#toolProperties()}.
+ * Each annotated parameter receives a specific value from the tool invocation arguments.
  * </p>
  * 
- * <p>Example usage:</p>
+ * <p>Example:</p>
  * <pre>
- * {@literal @}FunctionName("myTool")
- * public void myToolFunction(
- *     {@literal @}McpToolTrigger(name = "toolArgs", toolName = "myTool") String toolArguments,
+ * {@literal @}FunctionName("searchFiles")
+ * public HttpResponseMessage search(
+ *     {@literal @}McpToolTrigger(name = "context", description = "Search files") String context,
  *     {@literal @}McpToolProperty(
- *         propertyName = "fileName",
+ *         name = "query",
+ *         propertyName = "searchTerm",
  *         propertyType = "string",
- *         description = "The name of the file to process",
+ *         description = "Search term",
  *         required = true
- *     ) String fileName
+ *     ) String searchTerm
  * ) {
- *     // function implementation
+ *     // Use searchTerm directly
  * }
  * </pre>
+ * 
+ * @see McpToolTrigger
+ * @since 3.2.0
  */
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface McpToolProperty {
 
     /**
-     * The variable name used in function code for this tool property.
-     * This name will be used as the binding name in the function.json file.
-     * If propertyName is not specified, this name will be used as the default.
-     *
-     * @return The variable name used in function code for this tool property.
+     * The parameter binding name for the Azure Functions runtime.
+     * 
+     * @return The parameter binding name
      */
     String name();
 
     /**
-     * The name of the tool property.
-     * This should match the property name that will be passed in the tool arguments.
-     * If propertyName is not specified, the value of the 'name' property will be used 
-     * as the default.
-     *
-     * @return the name of the property
+     * The property name expected in tool invocation arguments.
+     * 
+     * @return The property name in tool arguments
      */
-    // String propertyName() default "";
+    String propertyName();
 
     /**
-     * The expected type of the property (e.g., "string", "int", "boolean", "array").
-     * This is used for validation and documentation purposes.
-     *
-     * @return the type of the property
+     * The expected data type (e.g., "string", "number", "boolean", "array", "object").
+     * 
+     * @return The property type identifier
      */
     String propertyType();
 
     /**
-     * A description of what this property represents and how it should be used.
-     * This may be used in UI or documentation to help users understand the property.
-     *
-     * @return the property's description
+     * Description of the property's purpose and usage.
+     * 
+     * @return Description of the property
      */
     String description();
 
     /**
-     * Indicates whether this property is required for the tool to function properly.
-     * If true, the tool execution may fail if this property is not provided.
-     *
-     * @return true if the property is required, false otherwise (defaults to false)
+     * Whether this property is required for tool execution.
+     * 
+     * @return true if required, false if optional
      */
     boolean required() default false;
 }
