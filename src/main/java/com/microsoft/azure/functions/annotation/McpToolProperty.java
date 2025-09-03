@@ -41,13 +41,6 @@ public @interface McpToolProperty {
     String name();
 
     /**
-     * The property name expected in tool invocation arguments.
-     * 
-     * @return The property name in tool arguments
-     */
-    String propertyName();
-
-    /**
      * The expected data type (e.g., "string", "number", "boolean", "array", "object").
      * 
      * @return The property type identifier
