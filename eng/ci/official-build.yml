@@ -1,5 +1,5 @@
 schedules:
-- cron: "0 0 * * *"
+- cron: "0 4 * * *"
   displayName: Nightly Build
   branches:
     include:
@@ -49,6 +49,9 @@ extends:
       name: 1es-pool-azfunc
       image: 1es-windows-2022
       os: windows
+      ${{ if eq( variables['Build.Reason'], 'Schedule' ) }}:
+        demands:
+        - Priority -equals Low
 
     stages:
     - stage: BuildAndTest
