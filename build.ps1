@@ -63,24 +63,28 @@ $skipCliDownload = $args[0]
 Write-Host "skipCliDownload" $skipCliDownload
 if(!$skipCliDownload)
 {
-Write-Host "Deleting Functions Core Tools if exists...."
-Remove-Item -Force ./Azure.Functions.Cli.zip -ErrorAction Ignore
-Remove-Item -Recurse -Force ./Azure.Functions.Cli -ErrorAction Ignore
+$FUNC_RUNTIME_VERSION = 'latest'
 
-Write-Host "Downloading Functions Core Tools...."
-Invoke-RestMethod -Uri "https://functionsclibuilds.blob.core.windows.net/builds/$FUNC_RUNTIME_VERSION/latest/version.txt" -OutFile version.txt
-Write-Host "Using Functions Core Tools version: $(Get-Content -Raw version.txt)"
-Remove-Item version.txt
+Write-Host "Installing Core Tools globlally using npm, version: $FUNC_RUNTIME_VERSION ..."
 
-$url = "https://functionsclibuilds.blob.core.windows.net/builds/$FUNC_RUNTIME_VERSION/latest/Azure.Functions.Cli.$os-$arch.zip"
-$output = "$currDir\Azure.Functions.Cli.zip"
-$wc = New-Object System.Net.WebClient
-$wc.DownloadFile($url, $output)
+$FUNC_CLI_DIRECTORY = Join-Path $currDir 'Azure.Functions.Cli'
 
-Write-Host "Extracting Functions Core Tools...."
-Expand-Archive ".\Azure.Functions.Cli.zip" -DestinationPath ".\Azure.Functions.Cli"
+# 1. Clean previous install
+Remove-Item -Recurse -Force $FUNC_CLI_DIRECTORY -ErrorAction Ignore
+New-Item -ItemType Directory -Path $FUNC_CLI_DIRECTORY -ErrorAction Ignore
+
+# 2. Locate the global prefix and module root that npm just used
+$globalNode   = (npm root   -g | Out-String).Trim()         # e.g. /usr/local/lib/node_modules
+$moduleRoot   = Join-Path $globalNode 'azure-functions-core-tools'
+
+# 3. npm install → temp folder
+npm install -g azure-functions-core-tools@$FUNC_RUNTIME_VERSION --unsafe-perm true --foreground-scripts --loglevel verbose
+
+# 4. Copy CLI payload into the layout required tests
+Copy-Item "$moduleRoot\bin\*" $FUNC_CLI_DIRECTORY -Recurse -Force
 }
 $Env:Path = $Env:Path+";$currDir\Azure.Functions.Cli"
+func --version
 
 # Clone and build azure-functions-java-worker
 git clone https://github.com/azure/azure-functions-java-worker -b dev
