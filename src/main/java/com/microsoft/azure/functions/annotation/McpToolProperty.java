@@ -68,5 +68,5 @@ public @interface McpToolProperty {
      * 
      * @return true if required, false if optional
      */
-    boolean required() default false;
+    boolean isRequired();
 }
