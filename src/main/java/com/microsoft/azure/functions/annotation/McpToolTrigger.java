@@ -64,7 +64,7 @@ public @interface McpToolTrigger {
      * 
      * @return Description of the tool's functionality
      */
-    String description();
+    String description() default "";
 
     /**
      * JSON array defining expected tool properties.
