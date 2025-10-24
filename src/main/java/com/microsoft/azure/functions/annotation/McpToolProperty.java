@@ -61,12 +61,19 @@ public @interface McpToolProperty {
      * 
      * @return Description of the property
      */
-    String description();
+    String description() default "";
 
     /**
      * Whether this property is required for tool execution.
      * 
      * @return true if required, false if optional
      */
-    boolean isRequired();
+    boolean isRequired() default false;
+
+    /**
+     * Whether this property is an array.
+     * 
+     * @return true if this property is an array, false otherwise
+     */
+    boolean isArray() default false;
 }
