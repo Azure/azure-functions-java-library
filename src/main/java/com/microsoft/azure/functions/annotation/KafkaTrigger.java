@@ -194,12 +194,12 @@ public @interface KafkaTrigger {
     /**
      * Specifies the data type of the message key that will be deserialized from the Kafka topic.
      * If KeyAvroSchema is set, this value is ignored and the key will be generated as a generic record.
-     * The default type is System.String.
-     * default ""
+     * The default type is STRING.
+     * Default: STRING
      *
      * @return the data type of the message key
      */
-    String keyDataType() default "";
+    KafkaMessageKeyType keyDataType() default KafkaMessageKeyType.STRING;
 
     /**
      * Client certificate in PEM format.

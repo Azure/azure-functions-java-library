@@ -221,12 +221,12 @@ public @interface KafkaOutput {
      * Specifies the data type of the message key.
      * This data type will be used to serialize the key before sending it to the Kafka topic.
      * If KeyAvroSchema is set, this value is ignored and the key will be serialized using Avro.
-     * The default type is System.String.
-     * default ""
+     * The default type is STRING.
+     * Default: STRING
      *
      * @return the data type of the message key
      */
-    String keyDataType() default "";
+    KafkaMessageKeyType keyDataType() default KafkaMessageKeyType.STRING;
 
     /**
      * Client certificate in PEM format.
