@@ -182,10 +182,130 @@ public @interface KafkaTrigger {
      */
     String avroSchema() default "";
 
-    /***
+    /**
+     * Gets or sets the Avro schema of message key.
+     * Should be used only if a generic record should be generated.
+     * default ""
+     *
+     * @return the avro schema for message key
+     */
+    String keyAvroSchema() default "";
+
+    /**
+     * Specifies the data type of the message key that will be deserialized from the Kafka topic.
+     * If KeyAvroSchema is set, this value is ignored and the key will be generated as a generic record.
+     * The default type is System.String.
+     * default ""
+     *
+     * @return the data type of the message key
+     */
+    String keyDataType() default "";
+
+    /**
+     * Client certificate in PEM format.
+     * ssl.certificate.pem in librdkafka
+     * default ""
+     *
+     * @return the ssl certificate PEM
+     */
+    String sslCertificatePEM() default "";
+
+    /**
+     * Client Private Key in PEM format.
+     * ssl.key.pem in librdkafka
+     * default ""
+     *
+     * @return the ssl key PEM
+     */
+    String sslKeyPEM() default "";
+
+    /**
+     * CA certificate for verifying the broker's certificate in PEM format
+     * ssl.ca.pem in librdkafka
+     * default ""
+     *
+     * @return the ssl CA PEM
+     */
+    String sslCaPEM() default "";
+
+    /**
+     * Client certificate and key in PEM format.
+     * Additional Configuration for extension as KeyVault supports uploading certificate only with private key.
+     * default ""
+     *
+     * @return the ssl certificate and key PEM
+     */
+    String sslCertificateandKeyPEM() default "";
+
+    /**
+     * OAuth Bearer method.
+     * Either 'default' or 'oidc'
+     * sasl.oauthbearer in librdkafka
+     * default ""
+     *
+     * @return the OAuth Bearer method
+     */
+    String oAuthBearerMethod() default "";
+
+    /**
+     * OAuth Bearer Client Id
+     * Specify only when OAuthBearerMethod is 'oidc'
+     * sasl.oauthbearer.client.id in librdkafka
+     * default ""
+     *
+     * @return the OAuth Bearer client id
+     */
+    String oAuthBearerClientId() default "";
+
+    /**
+     * OAuth Bearer Client Secret
+     * Specify only when OAuthBearerMethod is 'oidc'
+     * sasl.oauthbearer.client.secret in librdkafka
+     * default ""
+     *
+     * @return the OAuth Bearer client secret
+     */
+    String oAuthBearerClientSecret() default "";
+
+    /**
+     * OAuth Bearer scope.
+     * Client use this to specify the scope of the access request to the broker.
+     * Specify only when OAuthBearerMethod is 'oidc'
+     * sasl.oauthbearer.extensions in librdkafka
+     * default ""
+     *
+     * @return the OAuth Bearer scope
+     */
+    String oAuthBearerScope() default "";
+
+    /**
+     * OAuth Bearer token endpoint url.
+     * Specify only when OAuthBearerMethod is 'oidc'
+     * sasl.oauthbearer.token.endpoint.url in librdkafka
+     * default ""
+     *
+     * @return the OAuth Bearer token endpoint url
+     */
+    String oAuthBearerTokenEndpointUrl() default "";
+
+    /**
+     * OAuth Bearer extensions.
+     * Allow additional information to be provided to the broker.
+     * Comma-separated list of key=value pairs. E.g., "supportFeatureX=true,organizationId=sales-emea"
+     * sasl.oauthbearer.extensions in librdkafka
+     * default ""
+     *
+     * @return the OAuth Bearer extensions
+     */
+    String oAuthBearerExtensions() default "";
+
+    /**
+     * Maximum number of unprocessed messages a worker is expected to have at an instance.
+     * When target-based scaling is not disabled, this is used to divide total unprocessed event count to determine the number of worker instances, which will then be rounded up to a worker instance count that creates a balanced partition distribution.
+     * Default: 1000
      * 
-     * @return
-    */
+     * @return the lag threshold
+     */
     int lagThreshold() default 1000;
 
     /**
