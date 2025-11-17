@@ -7,6 +7,8 @@ package com.microsoft.azure.functions.annotation;
 
 import com.microsoft.azure.functions.BrokerAuthenticationMode;
 import com.microsoft.azure.functions.BrokerProtocol;
+import com.microsoft.azure.functions.OAuthBearerMethod;
+import com.microsoft.azure.functions.KafkaMessageKeyType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -296,7 +298,7 @@ public @interface KafkaOutput {
      *
      * @return the OAuth Bearer method
      */
-    String oAuthBearerMethod() default "";
+    OAuthBearerMethod oAuthBearerMethod() default OAuthBearerMethod.Default;
 
     /**
      * OAuth Bearer Client Id
