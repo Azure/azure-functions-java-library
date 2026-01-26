@@ -7,8 +7,8 @@ package com.microsoft.azure.functions.annotation;
 
 import com.microsoft.azure.functions.BrokerAuthenticationMode;
 import com.microsoft.azure.functions.BrokerProtocol;
-import com.microsoft.azure.functions.OAuthBearerMethod;
 import com.microsoft.azure.functions.KafkaMessageKeyType;
+import com.microsoft.azure.functions.OAuthBearerMethod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -223,12 +223,12 @@ public @interface KafkaOutput {
      * Specifies the data type of the message key.
      * This data type will be used to serialize the key before sending it to the Kafka topic.
      * If KeyAvroSchema is set, this value is ignored and the key will be serialized using Avro.
-     * The default type is STRING.
-     * Default: STRING
+     * The default type is String.
+     * Default: String
      *
      * @return the data type of the message key
      */
-    KafkaMessageKeyType keyDataType() default KafkaMessageKeyType.STRING;
+    KafkaMessageKeyType keyDataType() default KafkaMessageKeyType.String;
 
     /**
      * Client certificate in PEM format.
