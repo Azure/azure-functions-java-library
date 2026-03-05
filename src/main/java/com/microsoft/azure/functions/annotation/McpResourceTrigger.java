@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
  *         name = "context",
  *         uri = "file://readme.md",
  *         resourceName = "readme",
+ *         title = "Application Readme",
  *         description = "Application readme file",
  *         mimeType = "text/plain"
  *     ) String context,
@@ -76,6 +77,17 @@ public @interface McpResourceTrigger {
      * @return The resource name
      */
     String resourceName();
+
+    /**
+     * Optional human-readable title for display purposes.
+     * <p>
+     * Unlike {@code resourceName} which is a programmatic identifier,
+     * this is a friendly label for UI presentation.
+     * </p>
+     *
+     * @return The display title, or empty string if not specified
+     */
+    String title() default "";
 
     /**
      * The MIME type of the MCP resource (e.g., "text/plain", "image/png").
