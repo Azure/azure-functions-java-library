@@ -45,7 +45,6 @@ import java.lang.annotation.Target;
  *     ) String context,
  *     {@literal @}McpPromptArgument(
  *         name = "text",
- *         argumentName = "text",
  *         description = "The text to summarize",
  *         isRequired = true
  *     ) String text

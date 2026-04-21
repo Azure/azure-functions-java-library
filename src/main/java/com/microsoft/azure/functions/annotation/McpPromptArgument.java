@@ -18,21 +18,25 @@ import java.lang.annotation.Target;
  * Each annotated parameter receives a specific argument value from the prompt invocation.
  * Unlike tool properties, prompt arguments are always strings — no type schema is needed.
  * </p>
+ * <p>
+ * The {@code name()} value serves as both the binding parameter name and the argument name
+ * exposed in the MCP protocol (the Maven plugin patches it into {@code argumentName} in
+ * function.json). This follows the same convention as {@link McpToolProperty} where
+ * {@code name()} is patched into {@code propertyName}.
+ * </p>
  *
  * <p>Example:</p>
  * <pre>
  * {@literal @}FunctionName("codeReview")
  * public String codeReview(
- *     {@literal @}McpPromptTrigger(name = "context", description = "Code review prompt") String context,
+ *     {@literal @}McpPromptTrigger(name = "code_review", description = "Code review prompt") String context,
  *     {@literal @}McpPromptArgument(
  *         name = "code",
- *         argumentName = "code",
  *         description = "The code to review",
  *         isRequired = true
  *     ) String code,
  *     {@literal @}McpPromptArgument(
  *         name = "language",
- *         argumentName = "language",
  *         description = "The programming language"
  *     ) String language
  * ) {
@@ -48,18 +52,13 @@ import java.lang.annotation.Target;
 public @interface McpPromptArgument {
 
     /**
-     * The parameter binding name for the Azure Functions runtime.
-     *
-     * @return The parameter binding name
-     */
-    String name();
-
-    /**
-     * The name of the prompt argument as exposed in the MCP protocol.
+     * The argument name used as both the binding parameter name and the MCP protocol
+     * argument identifier. The Maven plugin patches this into {@code argumentName}
+     * in function.json.
      *
      * @return The argument name
      */
-    String argumentName() default "";
+    String name();
 
     /**
      * Description of the argument's purpose and usage.
