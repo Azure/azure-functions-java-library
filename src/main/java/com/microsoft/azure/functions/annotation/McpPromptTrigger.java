@@ -20,36 +20,25 @@ import java.lang.annotation.Target;
  * JSON-serialized {@code GetPromptResult} for multi-message or rich content responses.
  * </p>
  *
- * <p>Example with inline arguments:</p>
+ * <p>Example:</p>
  * <pre>
  * {@literal @}FunctionName("codeReview")
  * public String codeReview(
  *     {@literal @}McpPromptTrigger(
  *         name = "code_review",
- *         description = "Generates a code review prompt",
- *         promptArguments = "[{\"name\":\"code\",\"description\":\"The code to review\",\"required\":true}," +
- *                           "{\"name\":\"language\",\"description\":\"Programming language\",\"required\":false}]"
- *     ) String context
- * ) {
- *     return "Please review the following code...";
- * }
- * </pre>
- *
- * <p>Example with {@link McpPromptArgument} annotations:</p>
- * <pre>
- * {@literal @}FunctionName("summarize")
- * public String summarize(
- *     {@literal @}McpPromptTrigger(
- *         name = "summarize",
- *         description = "Summarizes the provided text"
+ *         description = "Generates a code review prompt"
  *     ) String context,
  *     {@literal @}McpPromptArgument(
- *         name = "text",
- *         description = "The text to summarize",
+ *         name = "code",
+ *         description = "The code to review",
  *         isRequired = true
- *     ) String text
+ *     ) String code,
+ *     {@literal @}McpPromptArgument(
+ *         name = "language",
+ *         description = "The programming language"
+ *     ) String language
  * ) {
- *     return "Please provide a concise summary of: " + text;
+ *     return "Please review the following " + language + " code:\n\n" + code;
  * }
  * </pre>
  *
