@@ -16,10 +16,13 @@ jobs:
       ApplicationInsightAgentVersion: 3.5.2
 
     steps:
-    - task: NuGetToolInstaller@1
+    - task: npmAuthenticate@0
+      displayName: 'Authenticate npm to CFS'
       inputs:
-        checkLatest: true
-      displayName: 'Install NuGet Tool'
+        workingFile: .npmrc
+
+    - task: NuGetAuthenticate@1
+      displayName: 'Authenticate NuGet to CFS'
 
     - pwsh: |
         Write-Host "Java_HOME: $env:JAVA_HOME"
@@ -30,9 +33,11 @@ jobs:
       displayName: 'Install .NET 6'
       inputs:
         version: 6.0.x
-        
+
     - pwsh: '& .\build.ps1'
       displayName: 'Build project with java library'
+      env:
+        NPM_CONFIG_USERCONFIG: $(Build.SourcesDirectory)/.npmrc
 
     - pwsh: |
         $currDir =  Get-Location
@@ -45,12 +50,25 @@ jobs:
       displayName: 'Package Java for E2E'
       condition: eq(${{ parameters.runEndToEndTests }}, true)
 
+    - task: DotNetCoreCLI@2
+      retryCountOnTaskFailure: 3
+      inputs:
+        command: 'restore'
+        projects: |
+          azure-functions-java-worker/emulatedtests/Azure.Functions.Java.Tests.E2E/Azure.Functions.Java.Tests.E2E/Azure.Functions.Java.Tests.E2E.csproj
+        feedsToUse: 'config'
+        nugetConfigPath: 'NuGet.config'
+      displayName: 'Restore E2E tests from CFS'
+      condition: eq(${{ parameters.runEndToEndTests }}, true)
+
     - bash: |
         npm install -g azurite
         mkdir azurite
         azurite --silent --location azurite --debug azurite\debug.log &
       displayName: 'Install and Run Azurite'
       condition: eq(${{ parameters.runEndToEndTests }}, true)
+      env:
+        NPM_CONFIG_USERCONFIG: $(Build.SourcesDirectory)/.npmrc
 
     - task: DotNetCoreCLI@2
       retryCountOnTaskFailure: 3
@@ -58,6 +76,7 @@ jobs:
         command: 'test'
         projects: |
           azure-functions-java-worker/emulatedtests/Azure.Functions.Java.Tests.E2E/Azure.Functions.Java.Tests.E2E/Azure.Functions.Java.Tests.E2E.csproj
+        arguments: '--no-restore'
       env:
         AzureWebJobsStorage: "UseDevelopmentStorage=true"
         JAVA_HOME: $(JAVA_HOME_8_X64)
