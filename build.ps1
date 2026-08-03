@@ -68,6 +68,13 @@ $FUNC_RUNTIME_VERSION = 'latest'
 Write-Host "Installing Core Tools globlally using npm, version: $FUNC_RUNTIME_VERSION ..."
 
 $FUNC_CLI_DIRECTORY = Join-Path $currDir 'Azure.Functions.Cli'
+$repoNpmConfig = Join-Path $PSScriptRoot '.npmrc'
+if ([string]::IsNullOrWhiteSpace($Env:NPM_CONFIG_USERCONFIG)) {
+  $Env:NPM_CONFIG_USERCONFIG = $repoNpmConfig
+}
+if (-not (Test-Path -LiteralPath $Env:NPM_CONFIG_USERCONFIG -PathType Leaf)) {
+  throw "NPM_CONFIG_USERCONFIG does not point to a file: $Env:NPM_CONFIG_USERCONFIG"
+}
 
 # 1. Clean previous install
 Remove-Item -Recurse -Force $FUNC_CLI_DIRECTORY -ErrorAction Ignore
@@ -78,7 +85,18 @@ $globalNode   = (npm root   -g | Out-String).Trim()         # e.g. /usr/local/li
 $moduleRoot   = Join-Path $globalNode 'azure-functions-core-tools'
 
 # 3. npm install → temp folder
-npm install -g azure-functions-core-tools@$FUNC_RUNTIME_VERSION --unsafe-perm true --foreground-scripts --loglevel verbose
+$npmInstallArguments = @(
+  'install'
+  '--global'
+  "azure-functions-core-tools@$FUNC_RUNTIME_VERSION"
+  '--unsafe-perm'
+  'true'
+  '--foreground-scripts'
+  '--loglevel'
+  'verbose'
+)
+& npm @npmInstallArguments
+StopOnFailedExecution
 
 # 4. Copy CLI payload into the layout required tests
 Copy-Item "$moduleRoot\bin\*" $FUNC_CLI_DIRECTORY -Recurse -Force

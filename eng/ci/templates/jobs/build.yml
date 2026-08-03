@@ -8,9 +8,17 @@ jobs:
       os: windows
 
     steps:
+    - task: npmAuthenticate@0
+      displayName: 'Authenticate npm to CFS'
+      inputs:
+        workingFile: .npmrc
+
     - pwsh: |
         Write-Host "Java_HOME: $JAVA_HOME"
         Get-Command mvn
       displayName: 'Check Maven is installed'
+
     - pwsh: '& .\build.ps1'
       displayName: 'Build project with java library'
+      env:
+        NPM_CONFIG_USERCONFIG: $(Build.SourcesDirectory)/.npmrc
