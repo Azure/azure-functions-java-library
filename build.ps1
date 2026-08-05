@@ -135,9 +135,6 @@ Pop-Location -StackName "libraryDir"
 
 $ApplicationInsightsAgentVersion = '3.5.2'
 $ApplicationInsightsAgentFilename = "applicationinsights-agent-${ApplicationInsightsAgentVersion}.jar"
-$ApplicationInsightsAgentUrl = "https://repo1.maven.org/maven2/com/microsoft/azure/applicationinsights-agent/${ApplicationInsightsAgentVersion}/${ApplicationInsightsAgentFilename}"
-
-# Download application insights agent from maven central
 $ApplicationInsightsAgentFile = "$currDir/$ApplicationInsightsAgentFilename"
 
 # local testing cleanup
@@ -157,14 +154,15 @@ if (Test-Path -Path $oldExtract) {
     Remove-Item -Path $oldExtract -Recurse
 }
 
-echo "Start downloading '$ApplicationInsightsAgentUrl' to '$currDir'"
-try {
-    Invoke-WebRequest -Uri $ApplicationInsightsAgentUrl -OutFile $ApplicationInsightsAgentFile
-} catch {
-    echo "An error occurred. Download fails" $ApplicationInsightsAgentFile
-    echo "Exiting"
-    exit 1
-}
+Write-Host "Restoring '$ApplicationInsightsAgentFilename' through Maven"
+$mavenArguments = @(
+  '--batch-mode'
+  'org.apache.maven.plugins:maven-dependency-plugin:3.8.1:copy'
+  "-Dartifact=com.microsoft.azure:applicationinsights-agent:${ApplicationInsightsAgentVersion}:jar"
+  "-DoutputDirectory=$currDir"
+)
+& mvn @mavenArguments
+StopOnFailedExecution
 
 if (-not(Test-Path -Path $ApplicationInsightsAgentFile)) {
     echo "$ApplicationInsightsAgentFile do not exist."

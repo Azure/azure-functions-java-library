@@ -39,3 +39,7 @@ hs_err_pid*
 
 #OSX
 .DS_Store
+
+# The Maven credential provider is an opt-in for ingesting uncached packages. CI authenticates
+# with MavenAuthenticate@0, and committing the extension would break anonymous restores.
+.mvn/
