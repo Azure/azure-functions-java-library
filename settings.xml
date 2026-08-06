@@ -13,8 +13,10 @@
   * MavenAuthenticate@0 and the Azure Artifacts credential provider key credentials off the
     feed name (`upstream-public`), not the repository id.
 
-  A mirror bridges the two: requests for `central` are redirected to the feed, and the mirror id
-  matches the feed name so credentials line up.
+  A mirror bridges the two: requests are redirected to the feed, and the mirror id matches the feed
+  name so credentials line up. It is scoped to `external:*` rather than `central` so that the
+  third-party projects build.ps1 clones and compiles also restore from the feed, since their poms
+  declare repositories under ids this repository does not control.
 
   CI installs this file to ~/.m2/settings.xml. To use it locally (only needed when pulling a
   package or version the feed has not cached yet):
@@ -29,7 +31,7 @@
       <id>upstream-public</id>
       <name>Azure Functions public upstream feed</name>
       <url>https://pkgs.dev.azure.com/azfunc/public/_packaging/upstream-public/maven/v1</url>
-      <mirrorOf>central</mirrorOf>
+      <mirrorOf>external:*</mirrorOf>
     </mirror>
   </mirrors>
 </settings>
