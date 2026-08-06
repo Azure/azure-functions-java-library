@@ -95,4 +95,4 @@ jobs:
         JAVA_HOME: $(JAVA_HOME_8_X64)
       displayName: 'Build & Run tests for java 8'
       condition: eq(${{ parameters.runEndToEndTests }}, true)
-    
+
