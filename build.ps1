@@ -154,6 +154,8 @@ if (Test-Path -Path $oldExtract) {
     Remove-Item -Path $oldExtract -Recurse
 }
 
+# CI installs authenticated user settings before invoking this script; local restores use the CFS
+# repository declared in pom.xml.
 Write-Host "Restoring '$ApplicationInsightsAgentFilename' through Maven"
 $mavenArguments = @(
   '--batch-mode'
