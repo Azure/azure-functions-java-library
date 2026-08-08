@@ -19,8 +19,12 @@ import java.lang.annotation.Target;
  *     <li>Any native Java types such as int, String, byte[]</li>
  *     <li>Nullable values using Optional&lt;T&gt;</li>
  *     <li>Any POJO type</li>
+ *     <li>Azure Blob Storage SDK types {@code BlobClient} and {@code BlobContainerClient} (preview)</li>
  * </ul>
  *
+ * <p>SDK type parameters require the {@code JAVA_ENABLE_SDK_TYPES} application setting to be {@code true} and
+ * Azure Functions Maven Plugin version 1.38.0 or later (or corresponding Gradle plugin support). Without SDK type
+ * support enabled, the Java worker treats the parameter as a POJO.</p>
  *
  * <p>The following example shows a Java function that logs the filename and size when a blob is added or updated
  * in the "samples-workitems" container:</p>

@@ -72,6 +72,33 @@ Binary data is represented as `byte[]` or `Byte[]` in your Azure functions code.
 
 Empty input values could be `null` as your functions argument, but a recommended way to deal with potential empty values is to use `Optional<T>` type.
 
+### Blob Storage SDK types
+
+Support for binding directly to Azure Blob Storage SDK types is currently in preview. `BlobClient` and `BlobContainerClient` parameters require:
+
+* The `JAVA_ENABLE_SDK_TYPES` application setting set to `true`.
+* Azure Functions Maven Plugin version 1.38.0 or later, or the corresponding Gradle plugin support.
+
+Without these settings, the Java worker treats the parameter as a regular POJO and attempts to deserialize the blob content into it.
+
+For example, a blob trigger can access blob properties through `BlobClient`:
+
+```java
+@FunctionName("processBlob")
+public void run(
+    @BlobTrigger(
+        name = "content",
+        path = "images/{name}",
+        connection = "AzureWebJobsStorage") BlobClient blob,
+    @BindingName("name") String filename,
+    ExecutionContext context
+) {
+    context.getLogger().info("Name: " + filename + ", Size: " + blob.getProperties().getBlobSize() + " bytes");
+}
+```
+
+Only one SDK type can be used in a function definition. See the [Java developer guide](https://learn.microsoft.com/azure/azure-functions/functions-reference-java#sdk-types) for configuration, supported types, and troubleshooting information.
+
 
 ## Inputs
 
