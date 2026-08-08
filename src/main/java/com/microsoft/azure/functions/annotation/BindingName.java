@@ -18,6 +18,14 @@ import java.lang.annotation.Target;
  * bindings in function.json manually.
  * </p>
  *
+ * <p>
+ * For batch trigger metadata, use an array or collection whose element type matches the metadata
+ * value. For example, Kafka metadata can be bound with
+ * {@code @BindingName("TopicArray") String[] topics} and
+ * {@code @BindingName("OffsetArray") long[] offsets}. {@code Object[]} is not supported for
+ * collection metadata.
+ * </p>
+ *
  * @since 1.0.0
  */
 @Target(ElementType.PARAMETER)

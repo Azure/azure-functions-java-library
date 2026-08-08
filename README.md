@@ -226,6 +226,11 @@ public class Function {
 }
 ```
 
+For trigger metadata containing a batch of values, use a concrete array or collection type that
+matches the metadata. For example, a Kafka trigger with `cardinality = Cardinality.MANY` can bind
+topics as `@BindingName("TopicArray") String[] topics` and offsets as
+`@BindingName("OffsetArray") long[] offsets`. `Object[]` is not supported for collection metadata.
+
 ### License
 
 This project is under the benevolent umbrella of the [.NET Foundation](http://www.dotnetfoundation.org/) and is licensed under the MIT License.
