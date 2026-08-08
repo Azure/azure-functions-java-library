@@ -37,6 +37,13 @@ public class BindingTest {
         }
     }
 
+    @Test
+    public void event_grid_output_should_support_identity_based_connection() throws NoSuchMethodException {
+        assertEquals("", EventGridOutput.class.getMethod("connection").getDefaultValue());
+        assertEquals("", EventGridOutput.class.getMethod("topicEndpointUri").getDefaultValue());
+        assertEquals("", EventGridOutput.class.getMethod("topicKeySetting").getDefaultValue());
+    }
+
     /**
      * find all annotation bindings based on annotation suffix conventions defined in bindingAnnotationSuffix array
      */
