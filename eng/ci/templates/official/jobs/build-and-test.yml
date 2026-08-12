@@ -24,6 +24,19 @@ jobs:
     - task: NuGetAuthenticate@1
       displayName: 'Authenticate NuGet to CFS'
 
+    # Maven resolves plugins and extensions before a pom's repositories are honored. Install the
+    # mirror before MavenAuthenticate@0, which adds credentials to the same settings file.
+    - pwsh: |
+        $m2 = Join-Path $HOME '.m2'
+        New-Item -ItemType Directory -Path $m2 -Force | Out-Null
+        Copy-Item '$(Build.SourcesDirectory)/settings.xml' (Join-Path $m2 'settings.xml') -Force
+      displayName: 'Install Maven settings.xml'
+
+    - task: MavenAuthenticate@0
+      displayName: 'Authenticate Maven to CFS'
+      inputs:
+        artifactsFeeds: upstream-public
+
     - pwsh: |
         Write-Host "Java_HOME: $env:JAVA_HOME"
         Get-Command mvn
@@ -82,4 +95,4 @@ jobs:
         JAVA_HOME: $(JAVA_HOME_8_X64)
       displayName: 'Build & Run tests for java 8'
       condition: eq(${{ parameters.runEndToEndTests }}, true)
-    
+
