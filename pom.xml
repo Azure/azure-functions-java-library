@@ -29,9 +29,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:https://github.com/Azure/azure-functions-java-worker</connection>
-		<developerConnection>scm:git:git@github.com:Azure/azure-functions-java-worker</developerConnection>
-		<url>https://github.com/Azure/azure-functions-java-worker</url>
+		<connection>scm:git:https://github.com/Azure/azure-functions-java-library</connection>
+		<developerConnection>scm:git:git@github.com:Azure/azure-functions-java-library</developerConnection>
+		<url>https://github.com/Azure/azure-functions-java-library</url>
 		<tag>HEAD</tag>
 	</scm>
 
