@@ -66,7 +66,7 @@ public @interface EventGridOutput {
      * here: https://docs.microsoft.com/en-us/azure/event-grid/custom-event-quickstart#send-an-event-to-your-topic
      * @return The topic key setting of the eventGrid topic.
      */
-    String topicKeySetting();
+    String topicKeySetting() default "";
 
     /**
      * Gets or sets the topic events endpoint URI. Eg: https://topic1.westus2-1.eventgrid.azure.net/api/events
@@ -74,5 +74,13 @@ public @interface EventGridOutput {
      * here: https://docs.microsoft.com/en-us/azure/event-grid/custom-event-quickstart#send-an-event-to-your-topic
      * @return The topic events endpoint URI of the eventGrid topic.
      */
-    String topicEndpointUri();
+    String topicEndpointUri() default "";
+
+    /**
+     * Defines the common prefix for app settings that configure an identity-based connection.
+     * When set, topicEndpointUri and topicKeySetting should not be set.
+     *
+     * @return The common prefix for the identity-based connection settings.
+     */
+    String connection() default "";
 }
