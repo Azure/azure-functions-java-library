@@ -312,6 +312,31 @@ Sometimes a function need to take a more detailed control of the input and outpu
 | `HttpRequestMessage<T>`  |    HTTP Trigger     | Get method, headers or queries |
 | `HttpResponseMessage` | HTTP Output Binding | Return status other than 200   |
 
+### Service Bus message settlement
+
+`@ServiceBusQueueTrigger` and `@ServiceBusTopicTrigger` accept `autoCompleteMessages = false`
+to disable automatic completion for a function that settles its messages manually.
+The default value is `true`. The Maven generator omits values equal to annotation defaults,
+so leaving this member unset or explicitly setting it to `true` inherits
+`extensions.serviceBus.autoCompleteMessages` in `host.json`. It does not override a host
+setting of `false`.
+
+This annotation setting alone does not enable Java SDK message bindings or settlement actions.
+The coordinated SDK integration uses `com.azure.messaging.servicebus.ServiceBusReceivedMessage`
+for the trigger message and an invocation-scoped
+`com.microsoft.azure.functions.servicebus.ServiceBusMessageActions` companion parameter for
+host-backed settlement. These types are not supplied by this annotation library.
+The companion parameter uses `@BindingName("message") ServiceBusMessageActions actions`,
+where `"message"` matches the trigger annotation's `name`. It associates actions with the
+existing trigger and does not declare a separate host binding.
+That integration requires a compatible Functions host and Service Bus extension, a Java worker
+with settlement support, and the Service Bus adapters and actions module from
+`azure-functions-java-additions`. The Maven plugin must also use an SDK types adapter version
+that recognizes Service Bus messages and emits deferred-binding metadata.
+The required release versions are not yet established. Until those coordinated components
+are available, the annotation does not make SDK messages or actions injectable.
+These trigger members do not change the `@BindingName` annotation API.
+
 ### Metadata
 
 Metadata comes from different sources, like HTTP headers, HTTP queries, and [trigger metadata](https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings#trigger-metadata-properties). You can use `@BindingName` annotation together with the metadata name to get the value.
