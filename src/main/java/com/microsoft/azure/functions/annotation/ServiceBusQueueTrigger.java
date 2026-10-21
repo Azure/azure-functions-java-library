@@ -94,6 +94,16 @@ public @interface ServiceBusQueueTrigger {
   boolean isSessionsEnabled() default false;
 
   /**
+   * Controls automatic completion of successfully processed messages.
+   * Set to false when settling messages manually.
+   * The default value true is omitted from generated function.json and inherits the
+   * host.json autoCompleteMessages setting. It does not override a host setting of false.
+   *
+   * @return False to disable automatic completion, or true to inherit host configuration.
+   */
+  boolean autoCompleteMessages() default true;
+
+  /**
    * Cardinality of the trigger input.
    * Choose 'One' if the input is a single message or 'Many' if the input is an array of messages.
    * 'ONE' is the default if unspecified
